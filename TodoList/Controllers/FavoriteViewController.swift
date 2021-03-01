@@ -13,14 +13,13 @@ class FavoriteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        title = "Task"
         todoListViewModel.showFaveriteList()
         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Favorite Task"
+        navigationItem.title = "Favorite Task"
         setup()
     }
     

@@ -14,9 +14,9 @@ class ListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        title = "Task"
-        taskTableView.reloadData()
+        navigationItem.title = "Task"
         todoListViewModel.loadTasks()
+        taskTableView.reloadData()
     }
     
     override func viewDidLoad() {
@@ -41,6 +41,7 @@ extension ListViewController {
 
 // MARK: - Button
 extension ListViewController {
+    
     @IBAction func addTaskButton(_ sender: UIBarButtonItem) {
         let storyBoard = UIStoryboard(name: "AddTodo", bundle: nil)
         let addTodoVC = storyBoard.instantiateViewController(withIdentifier: "AddTodoViewController") as! AddTodoViewController
@@ -51,6 +52,8 @@ extension ListViewController {
         
         self.present(navigationController, animated: true, completion: nil)
     }
+    
+    
 }
 
 // MARK: - AddTodoDelegate

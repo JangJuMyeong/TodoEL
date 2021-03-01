@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QQG-kl-jqL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QQG-kl-jqL">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -64,14 +64,14 @@
                     </tabBar>
                     <connections>
                         <segue destination="OOJ-TO-5Eh" kind="relationship" relationship="viewControllers" id="6YC-Ta-Z34"/>
-                        <segue destination="ITu-Rj-wff" kind="relationship" relationship="viewControllers" id="bY0-xe-pjp"/>
+                        <segue destination="N1l-ul-dte" kind="relationship" relationship="viewControllers" id="bY0-xe-pjp"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="76U-RB-rtC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
-        <!--Favorite-->
+        <!--Favorite View Controller-->
         <scene sceneID="jid-Iw-lgz">
             <objects>
                 <viewController id="ITu-Rj-wff" customClass="FavoriteViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
@@ -80,7 +80,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ks7-8t-3h7">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -93,14 +93,18 @@
                             <constraint firstItem="Sjb-w7-2aQ" firstAttribute="bottom" secondItem="ks7-8t-3h7" secondAttribute="bottom" id="tq1-Li-2Xz"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Favorite" image="star.fill" catalog="system" id="OUD-ag-zyA"/>
+                    <navigationItem key="navigationItem" id="Tam-Mi-a5Q">
+                        <barButtonItem key="rightBarButtonItem" image="text.justify" catalog="system" id="me8-np-A5Q">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="taskTableView" destination="ks7-8t-3h7" id="Sov-CY-Xj7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VmV-nZ-Zgq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1219" y="591"/>
+            <point key="canvasLocation" x="2128.985507246377" y="590.625"/>
         </scene>
         <!--Todo Detail View Controller-->
         <scene sceneID="9FC-ri-gDG">
@@ -189,7 +193,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gxF-XE-X8C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2120" y="591"/>
+            <point key="canvasLocation" x="3915.9420289855075" y="506.91964285714283"/>
         </scene>
         <!--List-->
         <scene sceneID="6YW-ik-VBg">
@@ -209,6 +213,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hx8-Ua-5Kk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1218.840579710145" y="-132.58928571428572"/>
+        </scene>
+        <!--Favorite-->
+        <scene sceneID="KYI-tH-s7d">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="N1l-ul-dte" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favorite" image="star.fill" catalog="system" id="OUD-ag-zyA"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3WA-70-QeB">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ITu-Rj-wff" kind="relationship" relationship="rootViewController" id="gkM-Xy-ay7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mj9-se-whA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1218.840579710145" y="590.625"/>
         </scene>
     </scenes>
     <resources>
