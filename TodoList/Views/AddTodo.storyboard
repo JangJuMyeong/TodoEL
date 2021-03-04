@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lp-AN-pX9">
-                                <rect key="frame" x="30" y="103" width="354" height="29"/>
+                                <rect key="frame" x="30" y="103" width="51.5" height="29"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -49,14 +50,51 @@
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="3Hm-63-bxw">
                                 <rect key="frame" x="30" y="235" width="354" height="364.5"/>
                             </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eDh-xr-8Vh">
+                                <rect key="frame" x="254" y="101.5" width="60" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="VTK-3w-YFg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                <state key="normal" title="Always">
+                                    <color key="titleColor" name="AccentColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="alwaysButtonAction:" destination="UIo-Ie-HDg" eventType="touchUpInside" id="7as-Eo-9Ib"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AUj-ah-LtR">
+                                <rect key="frame" x="324" y="101.5" width="60" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="ueQ-jJ-NAs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                <state key="normal" title="Special">
+                                    <color key="titleColor" name="AccentColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="specialBUttonAction:" destination="UIo-Ie-HDg" eventType="touchUpInside" id="Aek-6f-7Wi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="F4q-tq-leV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="F4q-tq-leV" firstAttribute="trailing" secondItem="MAr-cO-cQ8" secondAttribute="trailing" constant="30" id="1zk-Ho-aX3"/>
                             <constraint firstItem="F4q-tq-leV" firstAttribute="trailing" secondItem="udL-pK-4kC" secondAttribute="trailing" constant="30" id="27l-Hd-0YA"/>
-                            <constraint firstItem="F4q-tq-leV" firstAttribute="trailing" secondItem="u2g-nc-Bkw" secondAttribute="trailing" constant="30" id="2sQ-RD-OrA"/>
+                            <constraint firstItem="eDh-xr-8Vh" firstAttribute="centerY" secondItem="1lp-AN-pX9" secondAttribute="centerY" id="60f-pv-mqc"/>
                             <constraint firstItem="F4q-tq-leV" firstAttribute="trailing" secondItem="bFT-Em-E2l" secondAttribute="trailing" constant="272" id="83m-nY-XAH"/>
+                            <constraint firstItem="AUj-ah-LtR" firstAttribute="leading" secondItem="eDh-xr-8Vh" secondAttribute="trailing" constant="10" id="A4g-qZ-llo"/>
                             <constraint firstItem="udL-pK-4kC" firstAttribute="leading" secondItem="F4q-tq-leV" secondAttribute="leading" constant="30" id="BAu-Wp-ftm"/>
                             <constraint firstItem="MAr-cO-cQ8" firstAttribute="top" secondItem="bFT-Em-E2l" secondAttribute="bottom" constant="15" id="KqP-Dj-hWC"/>
                             <constraint firstItem="bFT-Em-E2l" firstAttribute="top" secondItem="3Hm-63-bxw" secondAttribute="bottom" constant="15" id="OL3-dZ-ZRM"/>
@@ -68,10 +106,12 @@
                             <constraint firstItem="MAr-cO-cQ8" firstAttribute="leading" secondItem="F4q-tq-leV" secondAttribute="leading" constant="20" id="emK-xf-VJp"/>
                             <constraint firstItem="3Hm-63-bxw" firstAttribute="top" secondItem="udL-pK-4kC" secondAttribute="bottom" constant="10" id="gTS-di-Tsi"/>
                             <constraint firstItem="u2g-nc-Bkw" firstAttribute="top" secondItem="1lp-AN-pX9" secondAttribute="bottom" constant="15" id="gnW-ZL-lUP"/>
+                            <constraint firstItem="AUj-ah-LtR" firstAttribute="centerY" secondItem="eDh-xr-8Vh" secondAttribute="centerY" id="hG7-dz-d3h"/>
+                            <constraint firstItem="F4q-tq-leV" firstAttribute="trailing" secondItem="u2g-nc-Bkw" secondAttribute="trailing" constant="30" id="hcR-VR-1A8"/>
                             <constraint firstAttribute="trailing" secondItem="3Hm-63-bxw" secondAttribute="trailing" constant="30" id="itL-mr-v1d"/>
-                            <constraint firstItem="F4q-tq-leV" firstAttribute="trailing" secondItem="1lp-AN-pX9" secondAttribute="trailing" constant="30" id="kEO-gG-k7U"/>
                             <constraint firstItem="udL-pK-4kC" firstAttribute="top" secondItem="u2g-nc-Bkw" secondAttribute="bottom" constant="15" id="qIV-cm-476"/>
                             <constraint firstItem="1lp-AN-pX9" firstAttribute="leading" secondItem="F4q-tq-leV" secondAttribute="leading" constant="30" id="r98-XD-NWg"/>
+                            <constraint firstItem="F4q-tq-leV" firstAttribute="trailing" secondItem="AUj-ah-LtR" secondAttribute="trailing" constant="30" id="xmU-sV-WTe"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="AnV-Br-HCV">
@@ -87,10 +127,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="AlwaysButton" destination="eDh-xr-8Vh" id="zKE-GA-4GM"/>
                         <outlet property="cancelButton" destination="Z2s-CL-ru3" id="fb8-Wo-UhV"/>
                         <outlet property="deadLinePiker" destination="3Hm-63-bxw" id="jUT-jv-yGS"/>
                         <outlet property="detailTaskView" destination="MAr-cO-cQ8" id="PaP-HA-kyB"/>
                         <outlet property="saveButton" destination="3jx-Nv-9pi" id="2CI-Hj-WE5"/>
+                        <outlet property="special" destination="AUj-ah-LtR" id="gEk-Zm-rAT"/>
                         <outlet property="taskField" destination="u2g-nc-Bkw" id="eni-pc-cgT"/>
                     </connections>
                 </viewController>
@@ -118,6 +160,9 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -13,6 +13,8 @@ protocol AddTodoDelegate: class {
 
 class AddTodoViewController: UIViewController, UITextViewDelegate {
     
+    @IBOutlet weak var AlwaysButton: UIButton!
+    @IBOutlet weak var special: UIButton!
     @IBOutlet var taskField: UITextField!
     @IBOutlet var deadLinePiker: UIDatePicker!
     @IBOutlet var detailTaskView: UITextView!
@@ -24,11 +26,12 @@ class AddTodoViewController: UIViewController, UITextViewDelegate {
     
     var editTarget : Todo?
     var deadlineTime : String?
-    
-    
+    var completion : ((Int ,String, String, Date) -> Void)?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         placeHolderLayer()
         deadLinePiker.addTarget(self, action: #selector(changed), for: .valueChanged)
@@ -40,8 +43,7 @@ class AddTodoViewController: UIViewController, UITextViewDelegate {
             
             detailTaskView.becomeFirstResponder()
             
-            
-            
+
         } else {
             placeholderSetting()
             navigationItem.title = "New Task"
@@ -73,18 +75,16 @@ extension AddTodoViewController {
         guard let Task = taskField.text, Task.isEmpty == false else {
             alert(message: "Pleace, Write down your task.")
             return }
+        guard let DeadLineTime = deadlineTime else {
+            alert(message: "Pleace, Set a deadline time.")
+            return }
         guard let Detial = detailTaskView.text,Detial.isEmpty == false else {
             alert(message: "Pleace, Write down your task detail.")
             return }
-        guard let DeadLineTime = deadlineTime else {
-            alert(message: "Pleace, Set a deadline time.")
-            return
-        }
-        
-        
         
         let todo = TodoManager.shared.createTodo(detail: Detial, task: Task, time: DeadLineTime)
         
+
         if let target = editTarget {
             todoListViewModel.updateTodo(target)
         } else {
@@ -94,7 +94,28 @@ extension AddTodoViewController {
         self.dismiss(animated: true, completion: {
             self.delegate?.complete()
         })
+        
+        completion?(todo.id,Task, Detial, changeDate(deadLine: DeadLineTime))
     }
+    
+    @IBAction func alwaysButtonAction(_ sender: UIButton) {
+        if special.isSelected {
+            special.isSelected = false
+            AlwaysButton.isSelected = true
+        }
+        AlwaysButton.isSelected = true
+    }
+    
+    @IBAction func specialBUttonAction(_ sender: UIButton) {
+        if AlwaysButton.isSelected {
+            AlwaysButton.isSelected = false
+            special.isSelected = true
+        }
+        
+        special.isSelected = true
+    }
+    
+    
 }
 //MARK:-DeadLine
 extension AddTodoViewController {
@@ -105,8 +126,8 @@ extension AddTodoViewController {
         dateformatter.dateStyle = .long
         dateformatter.timeStyle = .short
         
-        let date = dateformatter.string(from: deadLinePiker.date)
-        deadlineTime = date
+        let dateString = dateformatter.string(from: deadLinePiker.date)
+        deadlineTime = dateString
     }
     
     func changeDate(deadLine:String) -> Date {

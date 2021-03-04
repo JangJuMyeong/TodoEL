@@ -4,7 +4,7 @@
 //
 //  Created by Gilwan Ryu on 2020/11/18.
 //
-
+import UserNotifications
 import UIKit
 
 class ListViewController: UIViewController {
@@ -12,19 +12,40 @@ class ListViewController: UIViewController {
     @IBOutlet weak var taskTableView: UITableView!
     @IBOutlet weak var addTaskButton: UIBarButtonItem!
     
+    var alarmArray : [Date] = []
+    
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         navigationItem.title = "Task"
         todoListViewModel.loadTasks()
         taskTableView.reloadData()
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { success,error in
+            if let error = error{
+                print("error = \(error)")
+            }
+        })
         setup()
     }
     
     let todoListViewModel = TodoViewModel()
+    
+    func changeDate(deadLine:String) -> Date {
+        let dateString = deadLine
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .short
+        
+        let date: Date = dateFormatter.date(from: dateString)!
+        
+        return date
+    }
     
 }
 
@@ -51,9 +72,24 @@ extension ListViewController {
         navigationController.modalPresentationStyle = .fullScreen
         
         self.present(navigationController, animated: true, completion: nil)
+        
+        addTodoVC.completion = {id ,title, body , date in
+            let content = UNMutableNotificationContent()
+            content.title = title
+            content.sound = .default
+            content.body = body
+            
+            let targetTime = date
+            let tigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day,.hour,.minute, .second], from: targetTime), repeats: false)
+            
+            let request = UNNotificationRequest(identifier: "\(id)", content: content, trigger: tigger)
+            
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
+                print("error")
+            })
+        }
+        
     }
-    
-    
 }
 
 // MARK: - AddTodoDelegate
@@ -85,6 +121,24 @@ extension ListViewController : UITableViewDataSource {
             Todo.isDone = isDone
             self.todoListViewModel.updateTodo(Todo)
             self.taskTableView.reloadRows(at: [indexPath], with: .automatic)
+            if isDone {
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(Todo.id)"])
+            } else if isDone == false {
+                let content = UNMutableNotificationContent()
+                content.title = Todo.task
+                content.sound = .default
+                content.body = Todo.detail
+                
+                let targetTime = self.changeDate(deadLine: Todo.time)
+                let tigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day,.hour,.minute, .second], from: targetTime), repeats: false)
+                
+                let request = UNNotificationRequest(identifier: "\(Todo.id)", content: content, trigger: tigger)
+                
+                UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
+                    print("error")
+                })
+            }
+            
         }
         
         cell.faveriteButtonHandler = { isFaverite in
@@ -96,6 +150,7 @@ extension ListViewController : UITableViewDataSource {
         cell.deleteButtonTapHandler = {
             self.todoListViewModel.deleteTodo(Todo)
             self.taskTableView.reloadData()
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(Todo.id)"])
         }
         
         return cell

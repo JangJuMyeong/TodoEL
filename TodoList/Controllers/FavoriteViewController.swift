@@ -9,18 +9,22 @@ import UIKit
 
 class FavoriteViewController: UIViewController {
 
-    @IBOutlet weak var taskTableView: UITableView!
+    @IBOutlet weak var favoriteTaskTableView: UITableView!
     
-    override func viewWillAppear(_ animated: Bool) {
-        super .viewWillAppear(animated)
-        todoListViewModel.showFaveriteList()
-        
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Favorite Task"
+        todoListViewModel.showFaveriteList()
+        favoriteTaskTableView.reloadData()
         setup()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        todoListViewModel.showFaveriteList()
+        favoriteTaskTableView.reloadData()
     }
     
     let todoListViewModel = TodoViewModel()
@@ -29,10 +33,10 @@ class FavoriteViewController: UIViewController {
 // MARK: - Setup
 extension FavoriteViewController {
     func setup() {
-        taskTableView.register(UINib(nibName: "TaskTableViewCell", bundle: nil), forCellReuseIdentifier: "taskCell")
-        taskTableView.dataSource = self
-        taskTableView.delegate = self
-        taskTableView.tableFooterView = UIView()
+        favoriteTaskTableView.register(UINib(nibName: "TaskTableViewCell", bundle: nil), forCellReuseIdentifier: "taskCell")
+        favoriteTaskTableView.dataSource = self
+        favoriteTaskTableView.delegate = self
+        favoriteTaskTableView.tableFooterView = UIView()
     }
 }
 
@@ -58,23 +62,24 @@ extension FavoriteViewController : UITableViewDataSource {
         cell.doneButtonHandler = { isDone in
             Todo.isDone = isDone
             self.todoListViewModel.updateTodo(Todo)
-            self.taskTableView.reloadRows(at: [indexPath], with: .automatic)
+            self.favoriteTaskTableView.reloadRows(at: [indexPath], with: .automatic)
         }
         
         cell.faveriteButtonHandler = { isFaverite in
             Todo.isFaverite = isFaverite
             self.todoListViewModel.updateTodo(Todo)
-            self.taskTableView.reloadRows(at: [indexPath], with: .automatic)
+            self.favoriteTaskTableView.reloadRows(at: [indexPath], with: .automatic)
         }
         
         cell.deleteButtonTapHandler = {
             self.todoListViewModel.deleteTodo(Todo)
-            self.taskTableView.reloadData()
+            self.favoriteTaskTableView.reloadData()
         }
 
         return cell
     }
 }
+// MARK: - Button
 
 // MARK: - UITableViewDelegate
 extension FavoriteViewController : UITableViewDelegate {
@@ -88,21 +93,24 @@ extension FavoriteViewController : UITableViewDelegate {
 
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let faverite = faveriteAtcion(at: indexPath)
-        
+        let faverite = favoriteAtcion(at: indexPath)
+
         return UISwipeActionsConfiguration(actions: [faverite])
     }
     
-    func faveriteAtcion(at indexpath: IndexPath) -> UIContextualAction {
+    func favoriteAtcion(at indexpath: IndexPath) -> UIContextualAction {
         var todo = todoListViewModel.todos[indexpath.row]
         let action = UIContextualAction(style: .normal, title: "faverite") { (action, view, completion) in
             todo.isFaverite = !todo.isFaverite
+            self.todoListViewModel.loadTasks()
             self.todoListViewModel.updateTodo(todo)
-            self.taskTableView.reloadData()
-            
+            self.todoListViewModel.showFaveriteList()
+            self.favoriteTaskTableView.reloadData()
         }
         action.backgroundColor = todo.isFaverite ? #colorLiteral(red: 0.007709213533, green: 0.4783661366, blue: 0.9984756112, alpha: 1) : .gray
         action.image = UIImage(named: "star.png")
         return action
+        
     }
+
 }
