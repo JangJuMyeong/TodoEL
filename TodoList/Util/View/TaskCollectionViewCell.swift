@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskTableViewCell: UITableViewCell {
+class TaskTableViewCell: UICollectionViewCell {
 
     @IBOutlet weak var stateButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
@@ -26,12 +26,7 @@ class TaskTableViewCell: UITableViewCell {
         super.prepareForReuse()
         reset()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    
     var doneButtonHandler: ((Bool) -> Void)?
     var faveriteButtonHandler : ((Bool) -> Void)?
     var deleteButtonTapHandler: (() -> Void)?

@@ -27,8 +27,7 @@
 		EF0138CE25650A71000F7373 /* AddTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0138CD25650A71000F7373 /* AddTodoViewController.swift */; };
 		EF0138D125650A7C000F7373 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0138D025650A7C000F7373 /* TodoDetailViewController.swift */; };
 		EF0138D525650B28000F7373 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0138D425650B28000F7373 /* FavoriteViewController.swift */; };
-		EF0138E325650B9B000F7373 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0138E125650B9B000F7373 /* TaskTableViewCell.swift */; };
-		EF0138E425650B9B000F7373 /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF0138E225650B9B000F7373 /* TaskTableViewCell.xib */; };
+		EF0138E325650B9B000F7373 /* TaskCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0138E125650B9B000F7373 /* TaskCollectionViewCell.swift */; };
 		EF0138E825651453000F7373 /* AddTodo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF0138E725651453000F7373 /* AddTodo.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -57,8 +56,7 @@
 		EF0138CD25650A71000F7373 /* AddTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewController.swift; sourceTree = "<group>"; };
 		EF0138D025650A7C000F7373 /* TodoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewController.swift; sourceTree = "<group>"; };
 		EF0138D425650B28000F7373 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
-		EF0138E125650B9B000F7373 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
-		EF0138E225650B9B000F7373 /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
+		EF0138E125650B9B000F7373 /* TaskCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionViewCell.swift; sourceTree = "<group>"; };
 		EF0138E725651453000F7373 /* AddTodo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddTodo.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,8 +163,7 @@
 		EF0138D925650B6B000F7373 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				EF0138E125650B9B000F7373 /* TaskTableViewCell.swift */,
-				EF0138E225650B9B000F7373 /* TaskTableViewCell.xib */,
+				EF0138E125650B9B000F7373 /* TaskCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -238,7 +235,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF0138E425650B9B000F7373 /* TaskTableViewCell.xib in Resources */,
 				EF0138B52564E491000F7373 /* LaunchScreen.storyboard in Resources */,
 				B7ADC8DC25EE0E0000F91FD8 /* Setting.storyboard in Resources */,
 				EF0138B22564E491000F7373 /* Assets.xcassets in Resources */,
@@ -299,7 +295,7 @@
 			files = (
 				B7A5267C25EFAA90008CC8F9 /* DateHeader.swift in Sources */,
 				B7ADC8E325EE14DD00F91FD8 /* VersionViewController.swift in Sources */,
-				EF0138E325650B9B000F7373 /* TaskTableViewCell.swift in Sources */,
+				EF0138E325650B9B000F7373 /* TaskCollectionViewCell.swift in Sources */,
 				EF0138AD2564E490000F7373 /* ListViewController.swift in Sources */,
 				EF0138CE25650A71000F7373 /* AddTodoViewController.swift in Sources */,
 				EF0138CB256508C0000F7373 /* Storage.swift in Sources */,

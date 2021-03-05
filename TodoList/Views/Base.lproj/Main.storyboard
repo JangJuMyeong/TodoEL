@@ -170,18 +170,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="n3r-Oz-Qh4">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="REi-ty-UcU">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3Qz-Wd-axH">
+                                    <size key="itemSize" width="393" height="60"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="skT-ok-g4r">
+                                        <rect key="frame" x="10.5" y="60" width="393" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="UDd-8x-DUw">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZTz-bD-4Sf">
+                                                    <rect key="frame" x="5" y="15.5" width="20" height="19"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="PgU-79-Fw6"/>
+                                                        <constraint firstAttribute="width" constant="20" id="TKh-AZ-CYx"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kqC-87-3ha">
+                                                    <rect key="frame" x="345" y="16" width="33" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5YD-Sh-gvs">
+                                                    <rect key="frame" x="30" y="13" width="42" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="kqC-87-3ha" firstAttribute="centerY" secondItem="UDd-8x-DUw" secondAttribute="centerY" id="2u2-oT-7E4"/>
+                                                <constraint firstAttribute="trailing" secondItem="kqC-87-3ha" secondAttribute="trailing" constant="15" id="Ied-CI-i35"/>
+                                                <constraint firstItem="ZTz-bD-4Sf" firstAttribute="centerY" secondItem="UDd-8x-DUw" secondAttribute="centerY" id="Kfr-wu-nNM"/>
+                                                <constraint firstItem="ZTz-bD-4Sf" firstAttribute="leading" secondItem="UDd-8x-DUw" secondAttribute="leading" constant="5" id="bxI-QR-5YF"/>
+                                                <constraint firstItem="5YD-Sh-gvs" firstAttribute="leading" secondItem="ZTz-bD-4Sf" secondAttribute="trailing" constant="5" id="pjr-vx-gP4"/>
+                                                <constraint firstItem="5YD-Sh-gvs" firstAttribute="centerY" secondItem="UDd-8x-DUw" secondAttribute="centerY" id="vuI-3s-ZBc"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="393" height="50"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vmv-h2-P8r">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </collectionReusableView>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="n3r-Oz-Qh4" secondAttribute="bottom" id="4rd-eu-gFz"/>
-                            <constraint firstItem="n3r-Oz-Qh4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="hS0-Me-gdk"/>
-                            <constraint firstItem="n3r-Oz-Qh4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="iw1-bM-KGB"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="n3r-Oz-Qh4" secondAttribute="trailing" id="mar-vB-HC4"/>
+                            <constraint firstItem="REi-ty-UcU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="020-iJ-xAF"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="REi-ty-UcU" secondAttribute="trailing" id="77E-uU-vMi"/>
+                            <constraint firstItem="REi-ty-UcU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="W0O-Gb-BeN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="REi-ty-UcU" secondAttribute="bottom" id="b6d-e0-lEi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="kN5-Rt-bir">
@@ -194,12 +244,16 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addTaskButton" destination="QQg-9X-KNC" id="WSf-ht-Ks6"/>
-                        <outlet property="taskTableView" destination="n3r-Oz-Qh4" id="qUe-rT-pvP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="bDV-Xe-hTX">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <viewLayoutGuide key="safeArea" id="N4k-Y7-3ws"/>
+                </collectionReusableView>
             </objects>
-            <point key="canvasLocation" x="2074" y="-133"/>
+            <point key="canvasLocation" x="2073.913043478261" y="-133.25892857142856"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Jz3-IQ-CCv">
@@ -400,6 +454,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>

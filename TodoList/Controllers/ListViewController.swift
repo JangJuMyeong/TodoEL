@@ -4,6 +4,7 @@
 //
 //  Created by Gilwan Ryu on 2020/11/18.
 //
+import SwipeCellKit
 import UserNotifications
 import UIKit
 
@@ -188,4 +189,14 @@ extension ListViewController : UITableViewDelegate {
     }
 }
 
-
+extension ListViewController : SwipeCollectionViewCellDelegate {
+    func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        <#code#>
+    }
+    func collectionView(_ collectionView: UICollectionView, editActionsOptionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var option = SwipeOptions()
+        
+        
+    }
+    
+}
