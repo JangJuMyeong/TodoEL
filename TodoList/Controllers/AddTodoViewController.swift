@@ -26,6 +26,8 @@ class AddTodoViewController: UIViewController, UITextViewDelegate {
     
     var editTarget : Todo?
     var deadlineTime : String?
+    var isAlways = false
+    var isImportant = false
     var completion : ((Int ,String, String, Date) -> Void)?
 
     
@@ -82,7 +84,7 @@ extension AddTodoViewController {
             alert(message: "Pleace, Write down your task detail.")
             return }
         
-        let todo = TodoManager.shared.createTodo(detail: Detial, task: Task, time: DeadLineTime)
+        let todo = TodoManager.shared.createTodo(detail: Detial, task: Task, time: DeadLineTime, isAlways: isAlways, isImportant : isImportant)
         
 
         if let target = editTarget {
@@ -94,25 +96,38 @@ extension AddTodoViewController {
         self.dismiss(animated: true, completion: {
             self.delegate?.complete()
         })
-        
+        isAlways = false
+        isImportant = false
         completion?(todo.id,Task, Detial, changeDate(deadLine: DeadLineTime))
     }
     
     @IBAction func alwaysButtonAction(_ sender: UIButton) {
-        if special.isSelected {
-            special.isSelected = false
+        if AlwaysButton.isSelected {
+            AlwaysButton.isSelected = false
+            isAlways = false
+        } else {
             AlwaysButton.isSelected = true
+            isAlways = true
+            special.isSelected = false
+            isImportant = false
         }
-        AlwaysButton.isSelected = true
+        
+        print("always = \(isAlways) : importnat = \(isImportant)")
     }
     
     @IBAction func specialBUttonAction(_ sender: UIButton) {
-        if AlwaysButton.isSelected {
-            AlwaysButton.isSelected = false
+        if special.isSelected {
+            special.isSelected = false
+            isImportant = false
+
+        } else {
             special.isSelected = true
+            isImportant = true
+            AlwaysButton.isSelected = false
+            isAlways = false
         }
         
-        special.isSelected = true
+        print("always - \(isAlways) : importnat - \(isImportant)")
     }
     
     
@@ -123,8 +138,8 @@ extension AddTodoViewController {
     @objc func changed() {
         let dateformatter = DateFormatter()
         
-        dateformatter.dateStyle = .long
-        dateformatter.timeStyle = .short
+        dateformatter.dateStyle = .full
+        dateformatter.timeStyle = .full
         
         let dateString = dateformatter.string(from: deadLinePiker.date)
         deadlineTime = dateString
@@ -135,8 +150,9 @@ extension AddTodoViewController {
         
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .full
+        
         
         let date: Date = dateFormatter.date(from: dateString)!
         

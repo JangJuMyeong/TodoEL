@@ -144,18 +144,51 @@
                                     <outlet property="ibCalendarDelegate" destination="O6f-O0-8rS" id="Asm-1c-6Kq"/>
                                 </connections>
                             </collectionView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Fql-Zs-V8I">
+                                <rect key="frame" x="0.0" y="458" width="414" height="355"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xRn-dt-A6P">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pGn-gG-5Db">
+                                        <rect key="frame" x="0.0" y="50" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="yYw-MR-9tm">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hip-sH-sLh">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </collectionReusableView>
+                                <connections>
+                                    <outlet property="dataSource" destination="O6f-O0-8rS" id="6nY-hk-HY3"/>
+                                    <outlet property="delegate" destination="O6f-O0-8rS" id="gsx-cF-dns"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hBs-SU-Q7A"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Fql-Zs-V8I" firstAttribute="leading" secondItem="hBs-SU-Q7A" secondAttribute="leading" id="6WB-iZ-cqy"/>
+                            <constraint firstItem="hBs-SU-Q7A" firstAttribute="trailing" secondItem="Fql-Zs-V8I" secondAttribute="trailing" id="IPN-O0-EEB"/>
                             <constraint firstItem="hBs-SU-Q7A" firstAttribute="trailing" secondItem="Vfw-wR-PDp" secondAttribute="trailing" constant="20" id="JgH-0S-c8F"/>
                             <constraint firstItem="Vfw-wR-PDp" firstAttribute="top" secondItem="hBs-SU-Q7A" secondAttribute="top" constant="20" id="Pgi-hI-Sb4"/>
+                            <constraint firstItem="hBs-SU-Q7A" firstAttribute="bottom" secondItem="Fql-Zs-V8I" secondAttribute="bottom" id="RHa-gf-sWe"/>
+                            <constraint firstItem="Fql-Zs-V8I" firstAttribute="top" secondItem="Vfw-wR-PDp" secondAttribute="bottom" id="RaA-Vz-dEl"/>
                             <constraint firstItem="Vfw-wR-PDp" firstAttribute="leading" secondItem="hBs-SU-Q7A" secondAttribute="leading" constant="20" id="gxq-Rh-jCx"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="OFb-Te-cgm"/>
                     <connections>
                         <outlet property="calendarView" destination="Vfw-wR-PDp" id="e2d-0f-uP8"/>
+                        <outlet property="todayCollectionView" destination="Fql-Zs-V8I" id="Qzg-bG-GTH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rjo-Wk-0cp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -180,7 +213,7 @@
                                     <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="skT-ok-g4r">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="taskCell" id="skT-ok-g4r" customClass="TaskCollectionViewCell" customModule="TodoList" customModuleProvider="target">
                                         <rect key="frame" x="10.5" y="60" width="393" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="UDd-8x-DUw">
@@ -196,6 +229,9 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kqC-87-3ha">
                                                     <rect key="frame" x="345" y="16" width="33" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="33" id="wdM-ie-WAv"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -211,17 +247,39 @@
                                                 <constraint firstItem="kqC-87-3ha" firstAttribute="centerY" secondItem="UDd-8x-DUw" secondAttribute="centerY" id="2u2-oT-7E4"/>
                                                 <constraint firstAttribute="trailing" secondItem="kqC-87-3ha" secondAttribute="trailing" constant="15" id="Ied-CI-i35"/>
                                                 <constraint firstItem="ZTz-bD-4Sf" firstAttribute="centerY" secondItem="UDd-8x-DUw" secondAttribute="centerY" id="Kfr-wu-nNM"/>
+                                                <constraint firstItem="kqC-87-3ha" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5YD-Sh-gvs" secondAttribute="trailing" constant="15" id="X9y-h3-mjt"/>
                                                 <constraint firstItem="ZTz-bD-4Sf" firstAttribute="leading" secondItem="UDd-8x-DUw" secondAttribute="leading" constant="5" id="bxI-QR-5YF"/>
                                                 <constraint firstItem="5YD-Sh-gvs" firstAttribute="leading" secondItem="ZTz-bD-4Sf" secondAttribute="trailing" constant="5" id="pjr-vx-gP4"/>
                                                 <constraint firstItem="5YD-Sh-gvs" firstAttribute="centerY" secondItem="UDd-8x-DUw" secondAttribute="centerY" id="vuI-3s-ZBc"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" red="0.58162182569999998" green="0.75332099200000002" blue="0.96865850689999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <size key="customSize" width="393" height="50"/>
+                                        <connections>
+                                            <outlet property="DoneState" destination="ZTz-bD-4Sf" id="DpC-bd-oEy"/>
+                                            <outlet property="dateLabel" destination="kqC-87-3ha" id="zgD-se-rGX"/>
+                                            <outlet property="titleLabel" destination="5YD-Sh-gvs" id="Yq9-14-1qI"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vmv-h2-P8r">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TodoListHeaderView" id="vmv-h2-P8r" customClass="TodoListHeaderView" customModule="TodoList" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CgG-hE-D0k">
+                                            <rect key="frame" x="22" y="11.5" width="44.5" height="27.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="23"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="CgG-hE-D0k" firstAttribute="leading" secondItem="vmv-h2-P8r" secondAttribute="leading" constant="22" id="QWR-66-Ihq"/>
+                                        <constraint firstItem="CgG-hE-D0k" firstAttribute="centerY" secondItem="vmv-h2-P8r" secondAttribute="centerY" id="nUU-Tn-Flv"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="headerLabel" destination="CgG-hE-D0k" id="ym8-1b-53k"/>
+                                    </connections>
                                 </collectionReusableView>
                             </collectionView>
                         </subviews>
@@ -244,6 +302,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addTaskButton" destination="QQg-9X-KNC" id="WSf-ht-Ks6"/>
+                        <outlet property="taskCollectionVeiw" destination="REi-ty-UcU" id="dWQ-jj-2FB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -274,37 +333,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="76U-RB-rtC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
-        </scene>
-        <!--Favorite View Controller-->
-        <scene sceneID="jid-Iw-lgz">
-            <objects>
-                <viewController id="ITu-Rj-wff" customClass="FavoriteViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Nnw-yd-AjP">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ks7-8t-3h7">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="Sjb-w7-2aQ"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="ks7-8t-3h7" firstAttribute="top" secondItem="Sjb-w7-2aQ" secondAttribute="top" id="0kr-Ry-kUC"/>
-                            <constraint firstItem="Sjb-w7-2aQ" firstAttribute="trailing" secondItem="ks7-8t-3h7" secondAttribute="trailing" id="Hgi-9e-ZlN"/>
-                            <constraint firstItem="ks7-8t-3h7" firstAttribute="leading" secondItem="Sjb-w7-2aQ" secondAttribute="leading" id="SkO-mq-Ka9"/>
-                            <constraint firstItem="Sjb-w7-2aQ" firstAttribute="bottom" secondItem="ks7-8t-3h7" secondAttribute="bottom" id="tq1-Li-2Xz"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="Tam-Mi-a5Q"/>
-                    <connections>
-                        <outlet property="favoriteTaskTableView" destination="ks7-8t-3h7" id="Sov-CY-Xj7"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VmV-nZ-Zgq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2074" y="591"/>
         </scene>
         <!--Todo Detail View Controller-->
         <scene sceneID="9FC-ri-gDG">
@@ -425,13 +453,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="ITu-Rj-wff" kind="relationship" relationship="rootViewController" id="gkM-Xy-ay7"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mj9-se-whA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1218.840579710145" y="590.625"/>
+            <point key="canvasLocation" x="1219" y="591"/>
         </scene>
         <!--Home-->
         <scene sceneID="zOc-bf-Ti5">

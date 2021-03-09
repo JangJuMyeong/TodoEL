@@ -1,15 +1,15 @@
 //
-//  TaskTableViewCell.swift
+//  CollectionViewCell.swift
 //  TodoList
 //
-//  Created by Gilwan Ryu on 2020/11/18.
+//  Created by 장주명 on 2021/03/05.
 //
 
 import UIKit
 import SwipeCellKit
 
-class TaskCollectionViewCell: SwipeCollectionViewCell {
-
+class CollectionViewCell: SwipeCollectionViewCell {
+    
     @IBOutlet weak var DoneState: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -17,10 +17,6 @@ class TaskCollectionViewCell: SwipeCollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        reset()
-    }
-    override func prepareForReuse() {
-        super.prepareForReuse()
         reset()
     }
     
@@ -36,10 +32,8 @@ class TaskCollectionViewCell: SwipeCollectionViewCell {
     }
     func reset() {
         titleLabel.alpha = 1
-        DoneState.isHidden = true
-        
+        DoneState.isHidden = false
 
     }
-    
 
 }

@@ -10,21 +10,20 @@ import UIKit
 
 class ListViewController: UIViewController {
     
-    @IBOutlet weak var taskTableView: UITableView!
+    @IBOutlet weak var taskCollectionVeiw: UICollectionView!
     @IBOutlet weak var addTaskButton: UIBarButtonItem!
-    
-    var alarmArray : [Date] = []
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         navigationItem.title = "Task"
         todoListViewModel.loadTasks()
-        taskTableView.reloadData()
+        taskCollectionVeiw.reloadData()
 
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { success,error in
             if let error = error{
                 print("error = \(error)")
@@ -40,8 +39,8 @@ class ListViewController: UIViewController {
         
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .full
         
         let date: Date = dateFormatter.date(from: dateString)!
         
@@ -53,10 +52,8 @@ class ListViewController: UIViewController {
 // MARK: - Setup
 extension ListViewController {
     func setup() {
-        taskTableView.register(UINib(nibName: "TaskTableViewCell", bundle: nil), forCellReuseIdentifier: "taskCell")
-        taskTableView.dataSource = self
-        taskTableView.delegate = self
-        taskTableView.tableFooterView = UIView()
+        taskCollectionVeiw.dataSource = self
+        taskCollectionVeiw.delegate = self
         todoListViewModel.loadTasks()
     }
 }
@@ -96,106 +93,160 @@ extension ListViewController {
 // MARK: - AddTodoDelegate
 extension ListViewController: AddTodoDelegate {
     func complete() {
+        taskCollectionVeiw.reloadData()
         print("complete")
     }
 }
 
-// MARK: - UITableViewDataSource
-extension ListViewController : UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoListViewModel.todos.count
+// MARK: - UICollectionViewDataSource
+extension ListViewController : UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return todoListViewModel.numOfTaskSection
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
-        
-        var Todo = todoListViewModel.todos[indexPath.item]
-        cell.updateUI(todo: Todo)
-        cell.titleLabel.text = Todo.task
-        cell.dateLabel.text = Todo.time
-        
-        cell.doneButtonHandler = { isDone in
-            Todo.isDone = isDone
-            self.todoListViewModel.updateTodo(Todo)
-            self.taskTableView.reloadRows(at: [indexPath], with: .automatic)
-            if isDone {
-                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(Todo.id)"])
-            } else if isDone == false {
-                let content = UNMutableNotificationContent()
-                content.title = Todo.task
-                content.sound = .default
-                content.body = Todo.detail
-                
-                let targetTime = self.changeDate(deadLine: Todo.time)
-                let tigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day,.hour,.minute, .second], from: targetTime), repeats: false)
-                
-                let request = UNNotificationRequest(identifier: "\(Todo.id)", content: content, trigger: tigger)
-                
-                UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
-                    print("error")
-                })
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TodoListHeaderView", for: indexPath) as? TodoListHeaderView else {
+                return UICollectionReusableView()
             }
             
+            guard let section = TodoViewModel.TaskSection(rawValue: indexPath.section) else {
+                return UICollectionReusableView()
+            }
+            
+            header.headerLabel.text = section.title
+            return header
+        default:
+            return UICollectionReusableView()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 {
+            return todoListViewModel.filterTodayTodos.count
+        } else {
+            return todoListViewModel.filterUpcomingTodos.count
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "taskCell", for: indexPath) as? TaskCollectionViewCell else { return UICollectionViewCell() }
+        var todo: Todo
+        if indexPath.section == 0 {
+            todo = todoListViewModel.filterTodayTodos[indexPath.item]
+        } else {
+            todo = todoListViewModel.filterUpcomingTodos[indexPath.item]
+        }
+        cell.updateUI(todo: todo)
+        cell.titleLabel.text = todo.task
+        cell.dateLabel.text = todo.time
+        cell.layer.cornerRadius = 15
+        cell.delegate = self
+
+        if todo.isAlways {
+            cell.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        } else if todo.isImportant {
+            cell.backgroundColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
+        } else {
+            cell.backgroundColor = #colorLiteral(red: 0.532776773, green: 0.7595240474, blue: 0.9884788394, alpha: 1)
         }
         
-        cell.faveriteButtonHandler = { isFaverite in
-            Todo.isFaverite = isFaverite
-            self.todoListViewModel.updateTodo(Todo)
-            self.taskTableView.reloadRows(at: [indexPath], with: .automatic)
-        }
-        
-        cell.deleteButtonTapHandler = {
-            self.todoListViewModel.deleteTodo(Todo)
-            self.taskTableView.reloadData()
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(Todo.id)"])
-        }
         
         return cell
     }
+    
+    
 }
-
-// MARK: - UITableViewDelegate
-extension ListViewController : UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        
-        let todosindex = todoListViewModel.todos[indexPath.row]
+// MARK: - UICollectionViewDelegate
+extension ListViewController : UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let todosindex = todoListViewModel.todos[indexPath.item]
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "TodoDetailViewController") as! TodoDetailViewController
         vc.todo = todosindex
         present(vc, animated: true, completion: nil)
-        
-    }
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let faverite = faveriteAtcion(at: indexPath)
-        
-        return UISwipeActionsConfiguration(actions: [faverite])
     }
     
-    func faveriteAtcion(at indexpath: IndexPath) -> UIContextualAction {
-        var todo = todoListViewModel.todos[indexpath.row]
-        let action = UIContextualAction(style: .normal, title: "faverite") { (action, view, completion) in
-            todo.isFaverite = !todo.isFaverite
-            self.todoListViewModel.updateTodo(todo)
-            self.taskTableView.reloadData()
-            
-        }
-        action.backgroundColor = todo.isFaverite ? #colorLiteral(red: 0.007709213533, green: 0.4783661366, blue: 0.9984756112, alpha: 1) : .gray
-        action.image = UIImage(named: "star.png")
-        return action
+}
+
+extension ListViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        
+        let itemSpacing : CGFloat = 10 // 각 아이템끼리의 간격
+        let width = (collectionView.bounds.width - itemSpacing * 2)
+        
+        return CGSize(width: width, height: 60)
     }
 }
 
+
 extension ListViewController : SwipeCollectionViewCellDelegate {
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        <#code#>
+        var todo : Todo!
+        if indexPath.section == 0 {
+           todo = todoListViewModel.filterTodayTodos[indexPath.item]
+        } else {
+            todo = todoListViewModel.filterUpcomingTodos[indexPath.item]
+        }
+
+        
+        
+        switch orientation {
+        case .left :
+            
+            let isDoneAction = SwipeAction(style: .default, title: nil, handler: {action, indexPath in
+                todo.isDone = !todo.isDone
+                self.todoListViewModel.updateTodo(todo)
+                self.taskCollectionVeiw.reloadData()
+                if todo.isDone {
+                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(todo.id)"])
+                } else if todo.isDone == false {
+                    let content = UNMutableNotificationContent()
+                    content.title = todo.task
+                    content.sound = .default
+                    content.body = todo.detail
+                    
+                    let targetTime = self.changeDate(deadLine: todo.time)
+                    let tigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day,.hour,.minute, .second], from: targetTime), repeats: false)
+                    
+                    let request = UNNotificationRequest(identifier: "\(todo.id)", content: content, trigger: tigger)
+                    
+                    UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
+                        print("error")
+                    })
+                }
+                print("click letf")
+            })
+            isDoneAction.image = UIImage(systemName: "checkmark.circle")
+            isDoneAction.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+            
+            return [isDoneAction]
+        case .right :
+            let DeleteAction = SwipeAction(style: .default, title: nil, handler: {action, indexPath in
+                
+                self.todoListViewModel.deleteTodo(todo)
+                self.taskCollectionVeiw.reloadData()
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(todo.id)"])
+                print("click right")
+            })
+            DeleteAction.image = UIImage(systemName: "trash")
+            DeleteAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            
+            return [DeleteAction]
+        }
+        
     }
     func collectionView(_ collectionView: UICollectionView, editActionsOptionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
-        var option = SwipeOptions()
+        var options = SwipeOptions()
         
+        options.expansionStyle = .none
+        options.transitionStyle = .reveal
+        
+        return options
         
     }
     

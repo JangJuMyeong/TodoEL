@@ -51,7 +51,7 @@
                                 <rect key="frame" x="30" y="235" width="354" height="364.5"/>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eDh-xr-8Vh">
-                                <rect key="frame" x="254" y="101.5" width="60" height="32"/>
+                                <rect key="frame" x="234" y="101.5" width="60" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="VTK-3w-YFg"/>
                                 </constraints>
@@ -69,12 +69,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AUj-ah-LtR">
-                                <rect key="frame" x="324" y="101.5" width="60" height="32"/>
+                                <rect key="frame" x="304" y="101.5" width="80" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="ueQ-jJ-NAs"/>
+                                    <constraint firstAttribute="width" constant="80" id="ueQ-jJ-NAs"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                <state key="normal" title="Special">
+                                <state key="normal" title="Important">
                                     <color key="titleColor" name="AccentColor"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>

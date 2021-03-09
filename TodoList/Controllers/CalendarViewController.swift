@@ -2,9 +2,13 @@
 
 import UIKit
 import JTAppleCalendar
+import SwipeCellKit
 
 class CalendarViewController: UIViewController {
     @IBOutlet var calendarView: JTACMonthView!
+    @IBOutlet weak var todayCollectionView: UICollectionView!
+    
+    let todoListViewModel = TodoViewModel()
     
     var calendarDataSource: [String:String] = [:]
     var formatter: DateFormatter {
@@ -15,6 +19,7 @@ class CalendarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        todayCollectionView.register(UINib(nibName: "CollectionViewCell", bundle: .main), forSupplementaryViewOfKind: <#T##String#>, withReuseIdentifier: "CollectionViewCell")
         calendarView.scrollDirection = .horizontal
         calendarView.scrollingMode   = .stopAtEachCalendarFrame
         calendarView.showsHorizontalScrollIndicator = false
@@ -60,10 +65,6 @@ class CalendarViewController: UIViewController {
             cell.eventDot.isHidden = false
         }
     }
-    
-
-
-
 
 }
 extension CalendarViewController : JTACMonthViewDataSource {
@@ -99,9 +100,41 @@ extension CalendarViewController: JTACMonthViewDelegate {
     func calendar(_ calendar: JTACMonthView, willDisplay cell: JTACDayCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
        configureCell(view: cell, cellState: cellState)
     }
-    
-    
-
-    
         
+}
+
+extension CalendarViewController : UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return todoListViewModel.filterTodayTodos.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        <#code#>
+    }
+    
+    
+}
+
+extension CalendarViewController : UICollectionViewDelegate {
+    
+}
+
+extension CalendarViewController : UICollectionViewDelegateFlowLayout {
+    
+}
+
+extension CalendarViewController : SwipeCollectionViewCellDelegate {
+    func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        <#code#>
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, editActionsOptionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        
+        options.expansionStyle = .none
+        options.transitionStyle = .reveal
+        
+        return options
+        
+    }
 }
