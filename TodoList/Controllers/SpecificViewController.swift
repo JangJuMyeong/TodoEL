@@ -1,35 +1,30 @@
 //
-//  ViewController.swift
+//  FavoriteViewController.swift
 //  TodoList
 //
 //  Created by Gilwan Ryu on 2020/11/18.
 //
-import SwipeCellKit
-import UserNotifications
+
 import UIKit
+import SwipeCellKit
 
-class ListViewController: UIViewController {
+class SpecificViewController: UIViewController {
     
-    @IBOutlet weak var taskCollectionVeiw: UICollectionView!
-    @IBOutlet weak var addTaskButton: UIBarButtonItem!
+    @IBOutlet weak var SpecificCollectionView : UICollectionView!
     
-    override func viewWillAppear(_ animated: Bool) {
-        super .viewWillAppear(animated)
-        navigationItem.title = "Task"
-        todoListViewModel.loadTasks()
-        taskCollectionVeiw.reloadData()
-
-    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { success,error in
-            if let error = error{
-                print("error = \(error)")
-            }
-        })
+        navigationItem.title = "Specific Task"
+        SpecificCollectionView.reloadData()
         setup()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        SpecificCollectionView.reloadData()
+        todoListViewModel.loadTasks()
     }
     
     let todoListViewModel = TodoViewModel()
@@ -45,74 +40,33 @@ class ListViewController: UIViewController {
         let date: Date = dateFormatter.date(from: dateString)!
         
         return date
+        
     }
-    
 }
-
 // MARK: - Setup
-extension ListViewController {
+extension SpecificViewController {
     func setup() {
-        taskCollectionVeiw.dataSource = self
-        taskCollectionVeiw.delegate = self
-        todoListViewModel.loadTasks()
-    }
-}
-
-// MARK: - Button
-extension ListViewController {
-    
-    @IBAction func addTaskButton(_ sender: UIBarButtonItem) {
-        let storyBoard = UIStoryboard(name: "AddTodo", bundle: nil)
-        let addTodoVC = storyBoard.instantiateViewController(withIdentifier: "AddTodoViewController") as! AddTodoViewController
-        addTodoVC.delegate = self
-    
-        let navigationController = UINavigationController(rootViewController: addTodoVC)
-        navigationController.modalPresentationStyle = .fullScreen
-        
-        self.present(navigationController, animated: true, completion: nil)
-        
-        addTodoVC.completion = {id ,title, body , date in
-            let content = UNMutableNotificationContent()
-            content.title = title
-            content.sound = .default
-            content.body = body
-            
-            let targetTime = date
-            let tigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day,.hour,.minute, .second], from: targetTime), repeats: false)
-            
-            let request = UNNotificationRequest(identifier: "\(id)", content: content, trigger: tigger)
-            
-            UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
-                print("error")
-            })
-        }
-        
-    }
-}
-
-// MARK: - AddTodoDelegate
-extension ListViewController: AddTodoDelegate {
-    func complete() {
-        taskCollectionVeiw.reloadData()
-        print("complete")
+        SpecificCollectionView.register(UINib(nibName: "CollectionViewCell", bundle: .main), forCellWithReuseIdentifier: "CollectionViewCell")
+        SpecificCollectionView.dataSource = self
+        SpecificCollectionView.delegate = self
     }
 }
 
 // MARK: - UICollectionViewDataSource
-extension ListViewController : UICollectionViewDataSource {
+extension SpecificViewController : UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return todoListViewModel.numOfTaskSection
+        return todoListViewModel.numOfSpecificTaskSection
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TodoListHeaderView", for: indexPath) as? TodoListHeaderView else {
+            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SpecificViewHeaderView", for: indexPath) as? SpecificViewHeaderView else {
                 return UICollectionReusableView()
             }
             
-            guard let section = TodoViewModel.TaskSection(rawValue: indexPath.section) else {
+            guard let section = TodoViewModel.SpecificTaskSection(rawValue: indexPath.section) else {
                 return UICollectionReusableView()
             }
             
@@ -123,27 +77,28 @@ extension ListViewController : UICollectionViewDataSource {
         }
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            
-            return todoListViewModel.filterTodayTodos.count
+            return todoListViewModel.filterAlwaysTodos.count
         } else {
-            return todoListViewModel.filterUpcomingTodos.count
+            return todoListViewModel.filterImportantTodos.count
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "taskCell", for: indexPath) as? TaskCollectionViewCell else { return UICollectionViewCell() }
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as? CollectionViewCell else { return UICollectionViewCell() }
         var todo: Todo
         if indexPath.section == 0 {
-            todo = todoListViewModel.filterTodayTodos[indexPath.item]
+            todo = todoListViewModel.filterAlwaysTodos[indexPath.item]
         } else {
-            todo = todoListViewModel.filterUpcomingTodos[indexPath.item]
+            todo = todoListViewModel.filterImportantTodos[indexPath.item]
         }
         cell.updateUI(todo: todo)
         cell.titleLabel.text = todo.task
-        cell.dateLabel.text = todoListViewModel.dataGap(todo)
+        cell.dateLabel.text = todo.time
         cell.layer.cornerRadius = 15
         cell.delegate = self
 
@@ -158,22 +113,23 @@ extension ListViewController : UICollectionViewDataSource {
         
         return cell
     }
+
     
     
 }
 // MARK: - UICollectionViewDelegate
-extension ListViewController : UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let todosindex = todoListViewModel.todos[indexPath.item]
+extension SpecificViewController : UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didEndEditingItemAt indexPath: IndexPath?, for orientation: SwipeActionsOrientation) {
+        let todosindex = todoListViewModel.todos[indexPath!.item]
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "TodoDetailViewController") as! TodoDetailViewController
         vc.todo = todosindex
         present(vc, animated: true, completion: nil)
     }
     
+    
 }
 
-extension ListViewController : UICollectionViewDelegateFlowLayout {
+extension SpecificViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         
@@ -184,17 +140,14 @@ extension ListViewController : UICollectionViewDelegateFlowLayout {
     }
 }
 
-
-extension ListViewController : SwipeCollectionViewCellDelegate {
+extension SpecificViewController : SwipeCollectionViewCellDelegate {
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         var todo : Todo
         if indexPath.section == 0 {
-           todo = todoListViewModel.filterTodayTodos[indexPath.item]
+           todo = todoListViewModel.filterAlwaysTodos[indexPath.item]
         } else {
-            todo = todoListViewModel.filterUpcomingTodos[indexPath.item]
+            todo = todoListViewModel.filterImportantTodos[indexPath.item]
         }
-
-        
         
         switch orientation {
         case .left :
@@ -202,7 +155,7 @@ extension ListViewController : SwipeCollectionViewCellDelegate {
             let isDoneAction = SwipeAction(style: .default, title: nil, handler: {action, indexPath in
                 todo.isDone = !todo.isDone
                 self.todoListViewModel.updateTodo(todo)
-                self.taskCollectionVeiw.reloadData()
+                self.SpecificCollectionView.reloadData()
                 if todo.isDone {
                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(todo.id)"])
                 } else if todo.isDone == false {
@@ -230,7 +183,7 @@ extension ListViewController : SwipeCollectionViewCellDelegate {
             let DeleteAction = SwipeAction(style: .default, title: nil, handler: {action, indexPath in
                 
                 self.todoListViewModel.deleteTodo(todo)
-                self.taskCollectionVeiw.reloadData()
+                self.SpecificCollectionView.reloadData()
                 UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(todo.id)"])
                 print("click right")
             })
@@ -251,4 +204,13 @@ extension ListViewController : SwipeCollectionViewCellDelegate {
         
     }
     
+}
+
+class SpecificViewHeaderView : UICollectionReusableView {
+     
+    @IBOutlet weak var headerLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
 }

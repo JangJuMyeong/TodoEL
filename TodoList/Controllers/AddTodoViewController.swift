@@ -138,8 +138,8 @@ extension AddTodoViewController {
     @objc func changed() {
         let dateformatter = DateFormatter()
         
-        dateformatter.dateStyle = .full
-        dateformatter.timeStyle = .full
+        dateformatter.dateStyle = .long
+        dateformatter.timeStyle = .short
         
         let dateString = dateformatter.string(from: deadLinePiker.date)
         deadlineTime = dateString
@@ -150,8 +150,8 @@ extension AddTodoViewController {
         
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .full
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .short
         
         
         let date: Date = dateFormatter.date(from: dateString)!

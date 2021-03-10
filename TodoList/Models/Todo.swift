@@ -38,7 +38,7 @@ class TodoManager {
     
     var todos: [Todo] = []
     
-
+    
     
     func createTodo(detail: String, task: String,time:String, isAlways:Bool, isImportant: Bool ) -> Todo {
         let nextId = TodoManager.lastId + 1
@@ -79,26 +79,59 @@ class TodoManager {
     
     func dateGap(_ todo: Todo) -> String {
         
-        var dateGap = ""
+        var dateGap = "Late"
         
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .full
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .short
         
         let currentDate = Date()
         let calendar = Calendar.current
-        let date: Date = dateFormatter.date(from: todo.time)!
+        let date = dateFormatter.date(from: todo.time)!
         let currentCalendarDate = calendar.dateComponents([.year,.month,.day,.hour, .minute, .second], from: currentDate)
         let todoCalendarDate = calendar.dateComponents([.year,.month,.day,.hour, .minute, .second], from: date)
         
-        
         if currentCalendarDate.year != todoCalendarDate.year {
-            dateGap = String(currentCalendarDate.year! - todoCalendarDate.year!)
+            if (todoCalendarDate.year! - currentCalendarDate.year!) == 1 {
+                dateGap = String(todoCalendarDate.year! - currentCalendarDate.year!) + " Year"
+            } else if (todoCalendarDate.year! - currentCalendarDate.year!) > 1 {
+                dateGap = String(todoCalendarDate.year! - currentCalendarDate.year!) + " Years"
+            }
         } else if currentCalendarDate.month != todoCalendarDate.month {
-            dateGap = String(currentCalendarDate.month! - todoCalendarDate.month!)
+            if (todoCalendarDate.month! - currentCalendarDate.month!) == 1 {
+                dateGap = String(todoCalendarDate.month! - currentCalendarDate.month!) + " Month"
+            } else if (todoCalendarDate.month! - currentCalendarDate.month!) > 1 {
+                dateGap = String(todoCalendarDate.month! - currentCalendarDate.month!) + " Months"
+            }
         } else if currentCalendarDate.day != todoCalendarDate.day {
-            dateGap = String(currentCalendarDate.day! - todoCalendarDate.day!)
+            if (todoCalendarDate.day! - currentCalendarDate.day!) == 1 {
+                dateGap = String(todoCalendarDate.day! - currentCalendarDate.day!) + " day"
+            } else if (todoCalendarDate.day! - currentCalendarDate.day!) > 1 {
+                dateGap = String(todoCalendarDate.day! - currentCalendarDate.day!) + " days"
+            }
+        } else {
+            if currentCalendarDate.hour != todoCalendarDate.hour {
+                if (todoCalendarDate.hour! - currentCalendarDate.hour!) == 1 {
+                    dateGap = String(todoCalendarDate.hour! - currentCalendarDate.hour!) + " hour"
+                } else if (todoCalendarDate.hour! - currentCalendarDate.hour!) > 1 {
+                    dateGap = String(todoCalendarDate.hour! - currentCalendarDate.hour!) + " hours"
+                }
+            } else if currentCalendarDate.minute != todoCalendarDate.minute {
+                if (todoCalendarDate.minute! - currentCalendarDate.minute!) == 1 {
+                    dateGap = String(todoCalendarDate.minute! - currentCalendarDate.minute!) + " minute"
+                } else if (todoCalendarDate.minute! - currentCalendarDate.minute!) > 1 {
+                    dateGap = String(todoCalendarDate.minute! - currentCalendarDate.minute!) + " minutes"
+                }
+            } else if currentCalendarDate.second != todoCalendarDate.second {
+                if (todoCalendarDate.second! - currentCalendarDate.second!) == 1 {
+                    dateGap = String(todoCalendarDate.second! - currentCalendarDate.second!) + " second"
+                } else if (todoCalendarDate.second! - currentCalendarDate.second!) > 1 {
+                    dateGap = String(todoCalendarDate.second! - currentCalendarDate.second!) + " seconds"
+                }
+            } else {
+                dateGap = "Now"
+            }
         }
         
         return dateGap
@@ -107,8 +140,8 @@ class TodoManager {
     func filterToday(_ todo: Todo) -> Bool {
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .full
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .short
         
         let currentDate = Date()
         guard let todoDeadLine = dateFormatter.date(from: todo.time) else { return false }
@@ -121,32 +154,116 @@ class TodoManager {
         } else {
             return false
         }
-
-
+        
+        
+    }
+    
+    func isPastday(_ todo : Todo) -> Bool {
+        var isPastday = false
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .short
+        
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let date: Date = dateFormatter.date(from: todo.time)!
+        let currentCalendarDate = calendar.dateComponents([.year,.month,.day,.hour, .minute, .second], from: currentDate)
+        let todoCalendarDate = calendar.dateComponents([.year,.month,.day,.hour, .minute, .second], from: date)
+        
+        
+        if currentCalendarDate.year != todoCalendarDate.year {
+            if (todoCalendarDate.year! - currentCalendarDate.year!) < 0 {
+                isPastday = true
+            }
+        } else if currentCalendarDate.month != todoCalendarDate.month {
+            if (todoCalendarDate.month! - currentCalendarDate.month!) < 0 {
+                isPastday = true
+            }
+        } else if currentCalendarDate.day != todoCalendarDate.day {
+            if (todoCalendarDate.day! - currentCalendarDate.day!) < 0 {
+                isPastday =  true
+            }
+        }
+        
+        return isPastday
     }
     
     func TodayTodos(_ todos : [Todo]) -> [Todo] {
         var todaytodos : [Todo] = []
         for i in todos {
             let todayTodo = filterToday(i)
-            if todayTodo {
+            if todayTodo && !isPastday(i) {
                 todaytodos.append(i)
             }
+        }
+        
+        todaytodos = todaytodos.sorted { (pastTodo, afterTodo) -> Bool in
+            let dateFormatter = DateFormatter()
+            
+            dateFormatter.dateStyle = .long
+            dateFormatter.timeStyle = .short
+            let calendar = Calendar.current
+            guard let pastDeadLine = dateFormatter.date(from: pastTodo.time) else { return false }
+            guard let afterDeadLine = dateFormatter.date(from: afterTodo.time) else { return false }
+            
+            let pastTodoDate = calendar.dateComponents([.hour, .minute, .second], from: pastDeadLine)
+            let afterTodoDate = calendar.dateComponents([.hour, .minute, .second], from: afterDeadLine)
+            if pastTodoDate.hour! < afterTodoDate.hour! {
+                return true
+            } else if pastTodoDate.hour! == afterTodoDate.hour!, pastTodoDate.minute! < afterTodoDate.minute! {
+                return true
+            } else if pastTodoDate.minute! == afterTodoDate.minute!, pastTodoDate.second! < afterTodoDate.second! {
+                return true
+            } else {
+                return false
+            }
+            
         }
         return todaytodos
     }
     
     func upcomingTodos(_ todos : [Todo]) -> [Todo] {
-        var todaytodos : [Todo] = []
+        var upcomingTodos : [Todo] = []
         for i in todos {
             let todayTodo = filterToday(i)
-            if todayTodo == false {
-                todaytodos.append(i)
+            if todayTodo == false && !isPastday(i) {
+                upcomingTodos.append(i)
             }
         }
-        return todaytodos
+        upcomingTodos = upcomingTodos.sorted { (pastTodo, afterTodo) -> Bool in
+            let dateFormatter = DateFormatter()
+            
+            dateFormatter.dateStyle = .long
+            dateFormatter.timeStyle = .short
+            let calendar = Calendar.current
+            guard let pastDeadLine = dateFormatter.date(from: pastTodo.time) else { return false }
+            guard let afterDeadLine = dateFormatter.date(from: afterTodo.time) else { return false }
+            
+            let pastTodoDate = calendar.dateComponents([.year,.month,.day,.hour, .minute, .second], from: pastDeadLine)
+            let afterTodoDate = calendar.dateComponents([.year,.month,.day,.hour, .minute, .second], from: afterDeadLine)
+            
+            if pastTodoDate.year! < afterTodoDate.year! {
+                return true
+            }else if pastTodoDate.year! == afterTodoDate.year!, pastTodoDate.month! < afterTodoDate.month! {
+                return true
+            } else if pastTodoDate.month! == afterTodoDate.month!, pastTodoDate.day! < afterTodoDate.day! {
+                return true
+            } else if pastTodoDate.day! == afterTodoDate.day!,pastTodoDate.hour! < afterTodoDate.hour! {
+                return true
+            } else if pastTodoDate.hour! == afterTodoDate.hour!, pastTodoDate.minute! < afterTodoDate.minute! {
+                return true
+            } else if pastTodoDate.minute! == afterTodoDate.minute!, pastTodoDate.second! < afterTodoDate.second! {
+                return true
+            } else {
+                return false
+            }
+            
+        }
+        return upcomingTodos
     }
-
+    
 }
 
 class TodoViewModel {
@@ -186,7 +303,7 @@ class TodoViewModel {
     }
     
     var filterImportantTodos: [Todo] {
-        return todos.filter { $0.isImportant == false }
+        return todos.filter { $0.isImportant == true }
     }
     
     var filterTodayTodos: [Todo] {
@@ -204,6 +321,9 @@ class TodoViewModel {
         return SpecificTaskSection.allCases.count
     }
     
+    func dataGap(_ todo: Todo) -> String {
+        return manager.dateGap(todo)
+    }
     
     func addTodo(_ todo: Todo) {
         manager.addTodo(todo)
@@ -220,6 +340,6 @@ class TodoViewModel {
     func loadTasks() {
         manager.retrieveTodo()
     }
-
+    
 }
 
