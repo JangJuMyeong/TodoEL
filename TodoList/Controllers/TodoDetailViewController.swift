@@ -11,18 +11,32 @@ import UIKit
 class TodoDetailViewController: UIViewController {
     
     var todo : Todo?
-    
+    var string : String?
+    let notiCenter = NotificationCenter.default
     @IBOutlet var TaskLabel: UILabel!
     @IBOutlet var deadLineLabel: UILabel!
-    @IBOutlet var detailTask: UILabel!
+    @IBOutlet weak var detailTask: UITextView!
     
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Detail Task"
+        NotificationCenter.default.addObserver(self,selector: #selector(didRecieveTestNotification(_:)), name: AddTodoViewController.todoDidChange,object: nil)
         updateUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        updateUI()
+    }
+    
+
+    
+    
+    
+    @objc func didRecieveTestNotification(_ notification: Notification) {
+        let getValue = notification.object as! Todo
+        todo = getValue
+    }
     func updateUI() {
         TaskLabel.text = todo?.task
         deadLineLabel.text = todo?.time
@@ -37,7 +51,7 @@ class TodoDetailViewController: UIViewController {
         composeVC.editTarget = todo
         let navigationController = UINavigationController(rootViewController: composeVC)
         navigationController.modalPresentationStyle = .fullScreen
-        
+    
         self.present(navigationController, animated: true, completion: nil)
     }
     

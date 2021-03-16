@@ -22,9 +22,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7tt-5R-WxS">
-                        <rect key="frame" x="339" y="21" width="60" height="18"/>
+                        <rect key="frame" x="329" y="21" width="70" height="18"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="60" id="u1R-Cp-khj"/>
+                            <constraint firstAttribute="width" constant="70" id="u1R-Cp-khj"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                         <color key="textColor" red="0.37183742330000003" green="0.37183742330000003" blue="0.37183742330000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

@@ -42,6 +42,20 @@ class SpecificViewController: UIViewController {
         return date
         
     }
+    
+    func changeAlwaysDate(deadLine:String) -> Date {
+        let dateString = deadLine
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
+        
+        let date: Date = dateFormatter.date(from: dateString)!
+        
+        return date
+        
+    }
 }
 // MARK: - Setup
 extension SpecificViewController {
@@ -98,18 +112,18 @@ extension SpecificViewController : UICollectionViewDataSource {
         }
         cell.updateUI(todo: todo)
         cell.titleLabel.text = todo.task
-        cell.dateLabel.text = todo.time
+        cell.dateLabel.text = todoListViewModel.dataGap(todo)
         cell.layer.cornerRadius = 15
         cell.delegate = self
 
         if todo.isAlways {
-            cell.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 0.9162862301, green: 0.9778192639, blue: 0.9108620286, alpha: 1)
         } else if todo.isImportant {
-            cell.backgroundColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 1, green: 0.7306881547, blue: 0.7135236263, alpha: 1)
         } else {
-            cell.backgroundColor = #colorLiteral(red: 0.532776773, green: 0.7595240474, blue: 0.9884788394, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 0.9821832776, green: 0.9450852275, blue: 0.7653855681, alpha: 1)
         }
-        
+ 
         
         return cell
     }
@@ -119,11 +133,17 @@ extension SpecificViewController : UICollectionViewDataSource {
 }
 // MARK: - UICollectionViewDelegate
 extension SpecificViewController : UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didEndEditingItemAt indexPath: IndexPath?, for orientation: SwipeActionsOrientation) {
-        let todosindex = todoListViewModel.todos[indexPath!.item]
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var todo: Todo
+        if indexPath.section == 0 {
+            todo = todoListViewModel.filterAlwaysTodos[indexPath.item]
+        } else {
+            todo = todoListViewModel.filterImportantTodos[indexPath.item]
+        }
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "TodoDetailViewController") as! TodoDetailViewController
-        vc.todo = todosindex
-        present(vc, animated: true, completion: nil)
+        vc.todo = todo
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     
@@ -156,6 +176,7 @@ extension SpecificViewController : SwipeCollectionViewCellDelegate {
                 todo.isDone = !todo.isDone
                 self.todoListViewModel.updateTodo(todo)
                 self.SpecificCollectionView.reloadData()
+                var targetTime = Date()
                 if todo.isDone {
                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(todo.id)"])
                 } else if todo.isDone == false {
@@ -164,15 +185,21 @@ extension SpecificViewController : SwipeCollectionViewCellDelegate {
                     content.sound = .default
                     content.body = todo.detail
                     
-                    let targetTime = self.changeDate(deadLine: todo.time)
+                    if todo.isAlways {
+                        targetTime = self.changeAlwaysDate(deadLine: todo.time)
+                    } else {
+                        targetTime = self.changeDate(deadLine: todo.time)
+                    }
                     let tigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day,.hour,.minute, .second], from: targetTime), repeats: false)
                     
                     let request = UNNotificationRequest(identifier: "\(todo.id)", content: content, trigger: tigger)
                     
                     UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
                         print("error")
+                        
                     })
                 }
+                print("\(targetTime)")
                 print("click letf")
             })
             isDoneAction.image = UIImage(systemName: "checkmark.circle")

@@ -11,13 +11,11 @@
 		B72C570625F23E4D00AC098A /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72C570425F23E4D00AC098A /* CollectionViewCell.swift */; };
 		B72C570725F23E4D00AC098A /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B72C570525F23E4D00AC098A /* CollectionViewCell.xib */; };
 		B72C570E25F5F8BF00AC098A /* TodoListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72C570D25F5F8BF00AC098A /* TodoListHeaderView.swift */; };
+		B75EC1CB25FCAE26005570A9 /* CalendarDetailCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75EC1CA25FCAE26005570A9 /* CalendarDetailCollectionView.swift */; };
+		B75EC1CE25FCAEC5005570A9 /* CalendarDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B75EC1CD25FCAEC5005570A9 /* CalendarDetail.storyboard */; };
 		B7A5266725EF6540008CC8F9 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5266625EF6540008CC8F9 /* DateCell.swift */; };
 		B7A5266B25EF66E8008CC8F9 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5266A25EF66E8008CC8F9 /* CalendarViewController.swift */; };
 		B7A5267C25EFAA90008CC8F9 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5267B25EFAA90008CC8F9 /* DateHeader.swift */; };
-		B7ADC8DC25EE0E0000F91FD8 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7ADC8DB25EE0E0000F91FD8 /* Setting.storyboard */; };
-		B7ADC8E025EE0E6300F91FD8 /* ControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADC8DF25EE0E6300F91FD8 /* ControlViewController.swift */; };
-		B7ADC8E325EE14DD00F91FD8 /* VersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADC8E225EE14DD00F91FD8 /* VersionViewController.swift */; };
-		B7ADC8E625EE14F800F91FD8 /* CreditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADC8E525EE14F800F91FD8 /* CreditViewController.swift */; };
 		B7C64E01256763E400299D9C /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C64E00256763E400299D9C /* AlertViewController.swift */; };
 		B7C64E042567A60E00299D9C /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C64E032567A60E00299D9C /* star.png */; };
 		EF0138A92564E490000F7373 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0138A82564E490000F7373 /* AppDelegate.swift */; };
@@ -40,14 +38,12 @@
 		B72C570425F23E4D00AC098A /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		B72C570525F23E4D00AC098A /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 		B72C570D25F5F8BF00AC098A /* TodoListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListHeaderView.swift; sourceTree = "<group>"; };
+		B75EC1CA25FCAE26005570A9 /* CalendarDetailCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailCollectionView.swift; sourceTree = "<group>"; };
+		B75EC1CD25FCAEC5005570A9 /* CalendarDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CalendarDetail.storyboard; sourceTree = "<group>"; };
 		B7A5266625EF6540008CC8F9 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		B7A5266A25EF66E8008CC8F9 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		B7A5267625EF6E72008CC8F9 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7A5267B25EFAA90008CC8F9 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
-		B7ADC8DB25EE0E0000F91FD8 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
-		B7ADC8DF25EE0E6300F91FD8 /* ControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlViewController.swift; sourceTree = "<group>"; };
-		B7ADC8E225EE14DD00F91FD8 /* VersionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionViewController.swift; sourceTree = "<group>"; };
-		B7ADC8E525EE14F800F91FD8 /* CreditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditViewController.swift; sourceTree = "<group>"; };
 		B7C64E00256763E400299D9C /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		B7C64E032567A60E00299D9C /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		BF8B0FF13D7793EE99E78D59 /* Pods_TodoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,7 +111,7 @@
 				EF0138B32564E491000F7373 /* LaunchScreen.storyboard */,
 				EF0138AE2564E490000F7373 /* Main.storyboard */,
 				EF0138E725651453000F7373 /* AddTodo.storyboard */,
-				B7ADC8DB25EE0E0000F91FD8 /* Setting.storyboard */,
+				B75EC1CD25FCAEC5005570A9 /* CalendarDetail.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -136,14 +132,12 @@
 				B7A5266625EF6540008CC8F9 /* DateCell.swift */,
 				B7A5267B25EFAA90008CC8F9 /* DateHeader.swift */,
 				B7A5266A25EF66E8008CC8F9 /* CalendarViewController.swift */,
-				EF0138AC2564E490000F7373 /* ListViewController.swift */,
+				B75EC1CA25FCAE26005570A9 /* CalendarDetailCollectionView.swift */,
 				EF0138D425650B28000F7373 /* SpecificViewController.swift */,
+				EF0138AC2564E490000F7373 /* ListViewController.swift */,
 				EF0138CD25650A71000F7373 /* AddTodoViewController.swift */,
 				EF0138D025650A7C000F7373 /* TodoDetailViewController.swift */,
 				B7C64E00256763E400299D9C /* AlertViewController.swift */,
-				B7ADC8E525EE14F800F91FD8 /* CreditViewController.swift */,
-				B7ADC8DF25EE0E6300F91FD8 /* ControlViewController.swift */,
-				B7ADC8E225EE14DD00F91FD8 /* VersionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -246,9 +240,9 @@
 			files = (
 				EF0138B52564E491000F7373 /* LaunchScreen.storyboard in Resources */,
 				B72C570725F23E4D00AC098A /* CollectionViewCell.xib in Resources */,
-				B7ADC8DC25EE0E0000F91FD8 /* Setting.storyboard in Resources */,
 				EF0138B22564E491000F7373 /* Assets.xcassets in Resources */,
 				EF0138E825651453000F7373 /* AddTodo.storyboard in Resources */,
+				B75EC1CE25FCAEC5005570A9 /* CalendarDetail.storyboard in Resources */,
 				EF0138B02564E490000F7373 /* Main.storyboard in Resources */,
 				B7C64E042567A60E00299D9C /* star.png in Resources */,
 			);
@@ -304,20 +298,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7A5267C25EFAA90008CC8F9 /* DateHeader.swift in Sources */,
-				B7ADC8E325EE14DD00F91FD8 /* VersionViewController.swift in Sources */,
 				EF0138E325650B9B000F7373 /* TaskCollectionViewCell.swift in Sources */,
 				B72C570E25F5F8BF00AC098A /* TodoListHeaderView.swift in Sources */,
 				EF0138AD2564E490000F7373 /* ListViewController.swift in Sources */,
 				EF0138CE25650A71000F7373 /* AddTodoViewController.swift in Sources */,
 				EF0138CB256508C0000F7373 /* Storage.swift in Sources */,
-				B7ADC8E625EE14F800F91FD8 /* CreditViewController.swift in Sources */,
 				B7C64E01256763E400299D9C /* AlertViewController.swift in Sources */,
 				EF0138D525650B28000F7373 /* SpecificViewController.swift in Sources */,
 				B7A5266725EF6540008CC8F9 /* DateCell.swift in Sources */,
+				B75EC1CB25FCAE26005570A9 /* CalendarDetailCollectionView.swift in Sources */,
 				B72C570625F23E4D00AC098A /* CollectionViewCell.swift in Sources */,
 				EF0138C72565087D000F7373 /* Todo.swift in Sources */,
 				EF0138A92564E490000F7373 /* AppDelegate.swift in Sources */,
-				B7ADC8E025EE0E6300F91FD8 /* ControlViewController.swift in Sources */,
 				B7A5266B25EF66E8008CC8F9 /* CalendarViewController.swift in Sources */,
 				EF0138D125650A7C000F7373 /* TodoDetailViewController.swift in Sources */,
 			);
