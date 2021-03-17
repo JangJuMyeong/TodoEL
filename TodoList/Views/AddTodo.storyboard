@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="822"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IDx-Za-ED3">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="795"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="787"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oaa-Pw-gv4">
                                                 <rect key="frame" x="20" y="15" width="47" height="28"/>
@@ -31,7 +31,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Write down your task." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mTY-y8-wxj">
                                                 <rect key="frame" x="20" y="51" width="374" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dead Line" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YAr-6N-03p">
                                                 <rect key="frame" x="20" y="100" width="103" height="28"/>
@@ -49,10 +49,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RDJ-RM-9nH">
-                                                <rect key="frame" x="20" y="587" width="374" height="188"/>
+                                                <rect key="frame" x="20" y="587" width="374" height="180"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="188" id="hBI-me-6KC"/>
+                                                    <constraint firstAttribute="height" constant="180" id="hBI-me-6KC"/>
                                                 </constraints>
                                                 <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -98,9 +98,6 @@
                                             <constraint firstAttribute="bottom" secondItem="RDJ-RM-9nH" secondAttribute="bottom" constant="20" symbolic="YES" id="tr2-Cs-OeH"/>
                                             <constraint firstItem="YAr-6N-03p" firstAttribute="top" secondItem="mTY-y8-wxj" secondAttribute="bottom" constant="15" id="zTs-Ko-CHq"/>
                                         </constraints>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="HPZ-gx-bm7" appends="YES" id="7BD-9h-Yl1"/>
-                                        </connections>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -141,16 +138,12 @@
                         <outlet property="detailTaskView" destination="RDJ-RM-9nH" id="xia-at-DcW"/>
                         <outlet property="importantButton" destination="Ksq-lH-Qwe" id="MZZ-Pq-JQH"/>
                         <outlet property="saveButton" destination="3jx-Nv-9pi" id="2CI-Hj-WE5"/>
+                        <outlet property="subView" destination="IDx-Za-ED3" id="PLU-gF-1JY"/>
                         <outlet property="taskField" destination="mTY-y8-wxj" id="Ewz-f9-Y9b"/>
                         <outlet property="viewButtom" destination="dHo-BM-qrP" id="XDn-0V-OJ7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mCq-sx-sL9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="HPZ-gx-bm7">
-                    <connections>
-                        <action selector="tapView:" destination="UIo-Ie-HDg" id="A5h-Vr-4hH"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="986.95652173913049" y="139.95535714285714"/>
         </scene>

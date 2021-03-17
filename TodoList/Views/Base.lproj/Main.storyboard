@@ -92,7 +92,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="OFb-Te-cgm">
-                        <barButtonItem key="rightBarButtonItem" image="gearshape" catalog="system" id="BdZ-1e-gcA"/>
+                        <barButtonItem key="rightBarButtonItem" image="gearshape" catalog="system" id="BdZ-1e-gcA">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
                     </navigationItem>
                     <size key="freeformSize" width="414" height="900"/>
                     <connections>

@@ -24,41 +24,40 @@ class AddTodoViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var subView: UIView!
     
-    
-    @IBAction func tapView(_ sender: Any) {
-        taskField.resignFirstResponder()
-        detailTaskView.resignFirstResponder()
-    }
-    func defualtDateStirng(_ date: Date) -> String {
+    func defualtDateStirng() -> String {
         let dateformatter = DateFormatter()
         
         dateformatter.dateStyle = .none
         dateformatter.timeStyle = .short
         
-        return dateformatter.string(from: date)
+        return dateformatter.string(from: Date())
         
     }
-    
+    var calendarDate : Date?
     var editTarget : Todo?
     var deadlineTime : String?
     var isAlways = false
     var isImportant = false
     var completion : ((Int ,String, String, Date) -> Void)?
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.addSubview(subView)
+        self.subView.endEditing(true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+            
         setup()
         placeHolderLayer()
-        
-        
-        
+    
     }
     
 
     let todoListViewModel = TodoViewModel()
+    
     
     
     func setup() {
@@ -68,6 +67,13 @@ class AddTodoViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         detailTaskView.placeholder = ""
         taskField.delegate = self
         deadLinePiker.addTarget(self, action: #selector(changed), for: .valueChanged)
+        if calendarDate != nil {
+            guard let calendardate = calendarDate else { return}
+            deadLinePiker.date = calendardate
+            print("\(calendardate)")
+            print("\(deadLinePiker.date)")
+        }
+        
         if let Todo = editTarget {
             navigationItem.title = "Edit Task"
             taskField.text = Todo.task
@@ -90,6 +96,12 @@ class AddTodoViewController: UIViewController, UITextViewDelegate, UITextFieldDe
                 importantButton.isSelected = true
             }
             
+            
+        }else if calendarDate != nil {
+            guard let calendardate = calendarDate else { return}
+            deadLinePiker.date = calendardate
+            print("\(calendardate)")
+            print("\(deadLinePiker.date)")
             
         } else {
             navigationItem.title = "New Task"
@@ -142,9 +154,6 @@ extension AddTodoViewController {
             
             NotificationCenter.default.post(name: AddTodoViewController.todoDidChange, object: editTarget, userInfo: nil)
         } else {
-            if isAlways {
-                deadlineTime = defualtDateStirng(Date())
-            }
             guard let Task = taskField.text, Task.isEmpty == false else {
                 alert(message: "Pleace, Write down your task.")
                 return }
@@ -306,6 +315,11 @@ extension AddTodoViewController {
             return date
         }
         
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        taskField.resignFirstResponder()
+        return true
     }
 }
 

@@ -13,7 +13,7 @@ class CalendarDetailCollectionView: UIViewController {
 
     @IBOutlet weak var CalendarDetailCollection: UICollectionView!
     @IBOutlet weak var DateLabel: UILabel!
-    var date : Date?
+    var calendarDate : Date?
     
 
     
@@ -25,6 +25,10 @@ class CalendarDetailCollectionView: UIViewController {
         CalendarDetailCollection.register(UINib(nibName: "CollectionViewCell", bundle: .main), forCellWithReuseIdentifier: "CollectionViewCell")
         
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        CalendarDetailCollection.reloadData()
     }
 
 
@@ -59,12 +63,49 @@ class CalendarDetailCollectionView: UIViewController {
         return date
         
     }
+    
+    @IBAction func AddTodoButton(_ sender: Any) {
+        let storyBoard = UIStoryboard(name: "AddTodo", bundle: nil)
+        let addTodoVC = storyBoard.instantiateViewController(withIdentifier: "AddTodoViewController") as! AddTodoViewController
+        addTodoVC.delegate = self
+        addTodoVC.calendarDate = calendarDate
+    
+        let navigationController = UINavigationController(rootViewController: addTodoVC)
+        navigationController.modalPresentationStyle = .fullScreen
+        
+        self.present(navigationController, animated: true, completion: nil)
+        
+        addTodoVC.completion = {id ,title, body , date in
+            let content = UNMutableNotificationContent()
+            content.title = title
+            content.sound = .default
+            content.body = body
+            
+            let targetTime = date
+            let tigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day,.hour,.minute, .second], from: targetTime), repeats: false)
+            
+            let request = UNNotificationRequest(identifier: "\(id)", content: content, trigger: tigger)
+            
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
+                print("error")
+            })
+        }
+        
+    }
+    
+}
+
+extension CalendarDetailCollectionView: AddTodoDelegate {
+    func complete() {
+        CalendarDetailCollection.reloadData()
+        print("complete")
+    }
 }
 
 extension CalendarDetailCollectionView : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let date = date {
+        if let date = calendarDate {
             return todoListViewModel.checkDate(todoListViewModel.todos, date).count
         } else {
             return 0
@@ -78,7 +119,7 @@ extension CalendarDetailCollectionView : UICollectionViewDataSource {
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "CalendarDetailCollectionHeaderView", for: indexPath) as? CalendarDetailCollectionHeaderView else {
                 return UICollectionReusableView()
             }
-            if let date = date {
+            if let date = calendarDate {
                 let dateformatter = DateFormatter()
                 
                 dateformatter.timeStyle = .none
@@ -99,7 +140,7 @@ extension CalendarDetailCollectionView : UICollectionViewDataSource {
         }
 
         var todo: Todo!
-        if let date = date {
+        if let date = calendarDate {
             todo = todoListViewModel.checkDate(todoListViewModel.todos, date)[indexPath.item]
         }
         cell.updateUI(todo: todo)
@@ -122,6 +163,15 @@ extension CalendarDetailCollectionView : UICollectionViewDataSource {
 }
 
 extension CalendarDetailCollectionView : UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var todo: Todo!
+        if let date = calendarDate {
+            todo = todoListViewModel.checkDate(todoListViewModel.todos, date)[indexPath.item]
+        }
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "TodoDetailViewController") as! TodoDetailViewController
+        vc.todo = todo
+        navigationController?.pushViewController(vc, animated: true)
+    }
 
 }
 
@@ -149,7 +199,7 @@ class CalendarDetailCollectionHeaderView : UICollectionReusableView {
 extension CalendarDetailCollectionView : SwipeCollectionViewCellDelegate {
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         var todo : Todo!
-        if let date = date {
+        if let date = calendarDate {
             todo = todoListViewModel.checkDate(todoListViewModel.todos, date)[indexPath.item]
         }
         

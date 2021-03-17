@@ -242,7 +242,7 @@ extension CalendarViewController : FSCalendarDelegate {
         let storyBoard = UIStoryboard(name: "CalendarDetail", bundle: nil)
         guard let VC = storyBoard.instantiateViewController(withIdentifier: "CalendarDetail") as? CalendarDetailCollectionView else { return }
         
-        VC.date = date
+        VC.calendarDate = date
         
         self.navigationController?.pushViewController(VC, animated: true)
         
