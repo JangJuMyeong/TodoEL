@@ -64,15 +64,8 @@ class AddTodoViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         NotificationCenter.default.addObserver(self, selector: #selector(adjustInputView), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(adjustInputView), name: UIResponder.keyboardWillHideNotification, object: nil)
         detailTaskView.delegate = self //
-        detailTaskView.placeholder = ""
-        taskField.delegate = self
+
         deadLinePiker.addTarget(self, action: #selector(changed), for: .valueChanged)
-        if calendarDate != nil {
-            guard let calendardate = calendarDate else { return}
-            deadLinePiker.date = calendardate
-            print("\(calendardate)")
-            print("\(deadLinePiker.date)")
-        }
         
         if let Todo = editTarget {
             navigationItem.title = "Edit Task"
@@ -82,7 +75,6 @@ class AddTodoViewController: UIViewController, UITextViewDelegate, UITextFieldDe
             deadlineTime = Todo.time
             isAlways = Todo.isAlways
             isImportant = Todo.isImportant
-            detailTaskView.becomeFirstResponder()
             
             if Todo.isAlways{
                 AlwaysButton.isSelected = true
@@ -98,12 +90,16 @@ class AddTodoViewController: UIViewController, UITextViewDelegate, UITextFieldDe
             
             
         }else if calendarDate != nil {
+            let dateformatter = DateFormatter()
+            dateformatter.dateStyle = .long
+            dateformatter.timeStyle = .short
+            
             guard let calendardate = calendarDate else { return}
             deadLinePiker.date = calendardate
-            print("\(calendardate)")
-            print("\(deadLinePiker.date)")
-            
+            deadlineTime = dateformatter.string(from: calendardate)
         } else {
+            detailTaskView.placeholder = ""
+            taskField.delegate = self
             navigationItem.title = "New Task"
             taskField.text = ""
             deadLinePiker.date = Date()

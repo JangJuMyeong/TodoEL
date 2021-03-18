@@ -29,12 +29,56 @@ class TodoDetailViewController: UIViewController {
         updateUI()
     }
     
-
+    func changeDate(deadLine:String) -> Date {
+        
+        let dateString = deadLine
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .short
+        
+        guard let date: Date = dateFormatter.date(from: dateString) else { return Date() }
+        
+        return date
+    }
+    
+    func changeAlwaysDate(deadLine:String) -> Date {
+        
+        let dateString = deadLine
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
+        
+        guard let date: Date = dateFormatter.date(from: dateString) else { return Date() }
+        
+        return date
+    }
     
     
     
     @objc func didRecieveTestNotification(_ notification: Notification) {
         let getValue = notification.object as! Todo
+        var targetTime = Date()
+        let content = UNMutableNotificationContent()
+        content.title = getValue.task
+        content.sound = .default
+        content.body = getValue.detail
+        if getValue.isAlways {
+            targetTime = self.changeAlwaysDate(deadLine: getValue.time)
+        } else {
+            targetTime = self.changeDate(deadLine: getValue.time)
+        }
+        let tigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day,.hour,.minute, .second], from: targetTime), repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "\(getValue.id)", content: content, trigger: tigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
+            print("error")
+            
+        })
         todo = getValue
     }
     func updateUI() {

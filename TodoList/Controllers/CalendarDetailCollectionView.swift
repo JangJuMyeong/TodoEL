@@ -168,7 +168,8 @@ extension CalendarDetailCollectionView : UICollectionViewDelegate {
         if let date = calendarDate {
             todo = todoListViewModel.checkDate(todoListViewModel.todos, date)[indexPath.item]
         }
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "TodoDetailViewController") as! TodoDetailViewController
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "TodoDetailViewController") as! TodoDetailViewController
         vc.todo = todo
         navigationController?.pushViewController(vc, animated: true)
     }

@@ -94,6 +94,9 @@
                     <navigationItem key="navigationItem" id="OFb-Te-cgm">
                         <barButtonItem key="rightBarButtonItem" image="gearshape" catalog="system" id="BdZ-1e-gcA">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="settingButton:" destination="O6f-O0-8rS" id="IiJ-aU-bDE"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <size key="freeformSize" width="414" height="900"/>
@@ -160,6 +163,9 @@
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="gearshape" catalog="system" id="gQ1-b8-XVx">
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="SettingButton:" destination="BYZ-38-t0r" id="Xdy-0D-5fh"/>
+                                </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="add" id="QQg-9X-KNC">
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -275,7 +281,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Wpq-O9-O7a">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="square.and.pencil" catalog="system" id="71e-6y-uwK">
+                        <barButtonItem key="rightBarButtonItem" title="편집" id="71e-6y-uwK">
                             <connections>
                                 <action selector="composeButton:" destination="QxN-48-ewn" id="2rd-Et-Tpa"/>
                             </connections>
@@ -290,7 +296,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gxF-XE-X8C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2912" y="603"/>
+            <point key="canvasLocation" x="3821.739130434783" y="602.67857142857144"/>
         </scene>
         <!--Task-->
         <scene sceneID="6YW-ik-VBg">
@@ -382,6 +388,9 @@
                     <navigationItem key="navigationItem" id="CUt-Dl-BVZ">
                         <barButtonItem key="rightBarButtonItem" image="gearshape" catalog="system" id="PHG-wM-y8g">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="SettingButton:" destination="niX-T6-wcL" id="8c2-av-PgD"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -416,7 +425,6 @@
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
-        <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

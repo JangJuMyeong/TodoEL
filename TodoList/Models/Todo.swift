@@ -256,9 +256,15 @@ class TodoManager {
             guard let pastDeadLine = dateFormatter.date(from: pastTodo.time) else { return false }
             guard let afterDeadLine = dateFormatter.date(from: afterTodo.time) else { return false }
             
-            let pastTodoDate = calendar.dateComponents([.hour, .minute, .second], from: pastDeadLine)
-            let afterTodoDate = calendar.dateComponents([.hour, .minute, .second], from: afterDeadLine)
-            if pastTodoDate.hour! < afterTodoDate.hour! {
+            let pastTodoDate = calendar.dateComponents([.year,.month,.day ,.hour, .minute, .second], from: pastDeadLine)
+            let afterTodoDate = calendar.dateComponents([.year,.month,.day ,.hour, .minute, .second], from: afterDeadLine)
+            if pastTodoDate.year! < afterTodoDate.year! {
+                return true
+            }else if pastTodoDate.year! == afterTodoDate.year!, pastTodoDate.month! < afterTodoDate.month! {
+                return true
+            }else if pastTodoDate.month! == afterTodoDate.month!, pastTodoDate.day! < afterTodoDate.day! {
+                return true
+            } else if pastTodoDate.day! == afterTodoDate.day!, pastTodoDate.hour! < afterTodoDate.hour!{
                 return true
             } else if pastTodoDate.hour! == afterTodoDate.hour!, pastTodoDate.minute! < afterTodoDate.minute! {
                 return true
@@ -443,6 +449,18 @@ class TodoViewModel {
             switch self {
             case .today: return "Always"
             default: return "Important"
+            }
+        }
+    }
+    
+    enum SettingSection: Int, CaseIterable {
+        case openSource
+        case removeData
+        
+        var title: String {
+            switch self {
+            case .openSource: return "Open Source"
+            default: return "Remove Data"
             }
         }
     }

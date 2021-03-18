@@ -33,7 +33,7 @@ class CalendarViewController: UIViewController {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         todoListViewModel.loadTasks()
         todayCollectionView.reloadData()
         calendar.reloadData()
@@ -65,6 +65,11 @@ class CalendarViewController: UIViewController {
         
         return date
         
+    }
+    @IBAction func settingButton(_ sender: Any) {
+        let storyBoard = UIStoryboard(name: "SettingView", bundle: nil)
+        let settingVC = storyBoard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
+        self.present(settingVC, animated: true, completion: nil)
     }
     
     func setup() {

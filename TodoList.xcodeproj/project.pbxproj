@@ -11,6 +11,10 @@
 		B72C570625F23E4D00AC098A /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72C570425F23E4D00AC098A /* CollectionViewCell.swift */; };
 		B72C570725F23E4D00AC098A /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B72C570525F23E4D00AC098A /* CollectionViewCell.xib */; };
 		B72C570E25F5F8BF00AC098A /* TodoListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72C570D25F5F8BF00AC098A /* TodoListHeaderView.swift */; };
+		B756DA782601C23900BC2A82 /* SettingView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B756DA772601C23900BC2A82 /* SettingView.storyboard */; };
+		B756DA852601CAEB00BC2A82 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B756DA842601CAEB00BC2A82 /* SettingViewController.swift */; };
+		B756DA8B2601D59500BC2A82 /* FSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B756DA8A2601D59500BC2A82 /* FSViewController.swift */; };
+		B756DA8E2601D5A900BC2A82 /* SwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B756DA8D2601D5A900BC2A82 /* SwipeViewController.swift */; };
 		B75EC1CB25FCAE26005570A9 /* CalendarDetailCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75EC1CA25FCAE26005570A9 /* CalendarDetailCollectionView.swift */; };
 		B75EC1CE25FCAEC5005570A9 /* CalendarDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B75EC1CD25FCAEC5005570A9 /* CalendarDetail.storyboard */; };
 		B7A5266725EF6540008CC8F9 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5266625EF6540008CC8F9 /* DateCell.swift */; };
@@ -38,6 +42,10 @@
 		B72C570425F23E4D00AC098A /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		B72C570525F23E4D00AC098A /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 		B72C570D25F5F8BF00AC098A /* TodoListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListHeaderView.swift; sourceTree = "<group>"; };
+		B756DA772601C23900BC2A82 /* SettingView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingView.storyboard; sourceTree = "<group>"; };
+		B756DA842601CAEB00BC2A82 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		B756DA8A2601D59500BC2A82 /* FSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSViewController.swift; sourceTree = "<group>"; };
+		B756DA8D2601D5A900BC2A82 /* SwipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeViewController.swift; sourceTree = "<group>"; };
 		B75EC1CA25FCAE26005570A9 /* CalendarDetailCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailCollectionView.swift; sourceTree = "<group>"; };
 		B75EC1CD25FCAEC5005570A9 /* CalendarDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CalendarDetail.storyboard; sourceTree = "<group>"; };
 		B7A5266625EF6540008CC8F9 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
@@ -112,6 +120,7 @@
 				EF0138AE2564E490000F7373 /* Main.storyboard */,
 				EF0138E725651453000F7373 /* AddTodo.storyboard */,
 				B75EC1CD25FCAEC5005570A9 /* CalendarDetail.storyboard */,
+				B756DA772601C23900BC2A82 /* SettingView.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -137,7 +146,10 @@
 				EF0138AC2564E490000F7373 /* ListViewController.swift */,
 				EF0138CD25650A71000F7373 /* AddTodoViewController.swift */,
 				EF0138D025650A7C000F7373 /* TodoDetailViewController.swift */,
+				B756DA842601CAEB00BC2A82 /* SettingViewController.swift */,
 				B7C64E00256763E400299D9C /* AlertViewController.swift */,
+				B756DA8A2601D59500BC2A82 /* FSViewController.swift */,
+				B756DA8D2601D5A900BC2A82 /* SwipeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -244,6 +256,7 @@
 				EF0138E825651453000F7373 /* AddTodo.storyboard in Resources */,
 				B75EC1CE25FCAEC5005570A9 /* CalendarDetail.storyboard in Resources */,
 				EF0138B02564E490000F7373 /* Main.storyboard in Resources */,
+				B756DA782601C23900BC2A82 /* SettingView.storyboard in Resources */,
 				B7C64E042567A60E00299D9C /* star.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,10 +315,13 @@
 				B72C570E25F5F8BF00AC098A /* TodoListHeaderView.swift in Sources */,
 				EF0138AD2564E490000F7373 /* ListViewController.swift in Sources */,
 				EF0138CE25650A71000F7373 /* AddTodoViewController.swift in Sources */,
+				B756DA852601CAEB00BC2A82 /* SettingViewController.swift in Sources */,
 				EF0138CB256508C0000F7373 /* Storage.swift in Sources */,
 				B7C64E01256763E400299D9C /* AlertViewController.swift in Sources */,
+				B756DA8B2601D59500BC2A82 /* FSViewController.swift in Sources */,
 				EF0138D525650B28000F7373 /* SpecificViewController.swift in Sources */,
 				B7A5266725EF6540008CC8F9 /* DateCell.swift in Sources */,
+				B756DA8E2601D5A900BC2A82 /* SwipeViewController.swift in Sources */,
 				B75EC1CB25FCAE26005570A9 /* CalendarDetailCollectionView.swift in Sources */,
 				B72C570625F23E4D00AC098A /* CollectionViewCell.swift in Sources */,
 				EF0138C72565087D000F7373 /* Todo.swift in Sources */,
@@ -459,8 +475,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QPVS7TPGTF;
+				DEVELOPMENT_TEAM = 8R2A475KS5;
 				INFOPLIST_FILE = TodoList/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -468,6 +485,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.GilwanRyu.TodoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -479,8 +497,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QPVS7TPGTF;
+				DEVELOPMENT_TEAM = 8R2A475KS5;
 				INFOPLIST_FILE = TodoList/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -488,6 +507,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.GilwanRyu.TodoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

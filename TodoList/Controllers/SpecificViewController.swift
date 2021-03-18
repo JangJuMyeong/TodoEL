@@ -43,6 +43,7 @@ class SpecificViewController: UIViewController {
         
     }
     
+
     func changeAlwaysDate(deadLine:String) -> Date {
         let dateString = deadLine
         
@@ -55,6 +56,12 @@ class SpecificViewController: UIViewController {
         
         return date
         
+    }
+    
+    @IBAction func SettingButton(_ sender: Any) {
+        let storyBoard = UIStoryboard(name: "SettingView", bundle: nil)
+        let settingVC = storyBoard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
+        self.present(settingVC, animated: true, completion: nil)
     }
 }
 // MARK: - Setup

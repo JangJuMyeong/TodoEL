@@ -62,6 +62,9 @@ class ListViewController: UIViewController {
         return date
     }
     
+    
+
+    
 }
 
 // MARK: - Setup
@@ -76,6 +79,11 @@ extension ListViewController {
 
 // MARK: - Button
 extension ListViewController {
+    @IBAction func SettingButton(_ sender: UIBarButtonItem) {
+        let storyBoard = UIStoryboard(name: "SettingView", bundle: nil)
+        let settingVC = storyBoard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
+        self.present(settingVC, animated: true, completion: nil)
+    }
     
     @IBAction func addTaskButton(_ sender: UIBarButtonItem) {
         let storyBoard = UIStoryboard(name: "AddTodo", bundle: nil)
@@ -97,7 +105,6 @@ extension ListViewController {
             let tigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day,.hour,.minute, .second], from: targetTime), repeats: false)
             
             let request = UNNotificationRequest(identifier: "\(id)", content: content, trigger: tigger)
-            
             UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
                 print("error")
             })
