@@ -29,21 +29,6 @@ class SpecificViewController: UIViewController {
     
     let todoListViewModel = TodoViewModel()
     
-    func changeDate(deadLine:String) -> Date {
-        let dateString = deadLine
-        
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
-        
-        let date: Date = dateFormatter.date(from: dateString)!
-        
-        return date
-        
-    }
-    
-
     func changeAlwaysDate(deadLine:String) -> Date {
         let dateString = deadLine
         
@@ -192,11 +177,8 @@ extension SpecificViewController : SwipeCollectionViewCellDelegate {
                     content.sound = .default
                     content.body = todo.detail
                     
-                    if todo.isAlways {
-                        targetTime = self.changeAlwaysDate(deadLine: todo.time)
-                    } else {
-                        targetTime = self.changeDate(deadLine: todo.time)
-                    }
+                    targetTime = TodoManager.shared.changeDate(deadLine: todo.time, todo.isAlways)
+                    
                     let tigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day,.hour,.minute, .second], from: targetTime), repeats: false)
                     
                     let request = UNNotificationRequest(identifier: "\(todo.id)", content: content, trigger: tigger)

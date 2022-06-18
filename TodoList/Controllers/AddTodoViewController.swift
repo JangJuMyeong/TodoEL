@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol AddTodoDelegate: class {
+protocol AddTodoDelegate: AnyObject {
     func complete()
 }
 
@@ -263,9 +263,6 @@ extension AddTodoViewController {
                 deadlineTime = dateString
             }
         }
-        
-        
-        
     }
     
     func changeDate(deadLine:String) -> Date {

@@ -47,6 +47,22 @@ class TodoManager {
         return dateFormatter
     }
     
+    var todoLongStyleDateformatter : DateFormatter {
+        let dateformatter = DateFormatter()
+        
+        dateformatter.dateStyle = .long
+        dateformatter.timeStyle = .short
+        
+        return dateformatter
+    }
+    
+    var todoYearDateformatter : DateFormatter {
+        let dateformatter = DateFormatter()
+        
+        dateformatter.dateFormat = "dd-MMM-yyyy"
+        
+        return dateformatter
+    }
     
     func createTodo(detail: String, task: String,time:String, isAlways:Bool, isImportant: Bool ) -> Todo {
         let nextId = TodoManager.lastId + 1
@@ -89,31 +105,8 @@ class TodoManager {
         var clickDateTodos : [Todo] = []
         
         for i in todos {
-            
-            let dateformatter = DateFormatter()
-            
-            dateformatter.dateStyle = .long
-            dateformatter.timeStyle = .short
-            
-            func fliterClickDate(_ todo: Todo) -> Bool {
-                let dateformatter = DateFormatter()
-                
-                dateformatter.dateStyle = .long
-                dateformatter.timeStyle = .short
-                let clickDate = Date
-                guard let todoDeadLine = dateformatter.date(from: todo.time) else { return false }
-                let calendar = Calendar.current
-                let clickDateCalendarDate = calendar.dateComponents([.year,.month,.day], from: clickDate)
-                let todoCalendarDate = calendar.dateComponents([.year,.month,.day], from: todoDeadLine)
-                
-                if clickDateCalendarDate.year == todoCalendarDate.year && clickDateCalendarDate.month == todoCalendarDate.month && clickDateCalendarDate.day == todoCalendarDate.day {
-                    return true
-                } else {
-                    return false
-                }
-            }
-            
-            if fliterClickDate(i) {
+           
+            if fliterClickDate(i, Date) {
                 clickDateTodos.append(i)
             }
         }
@@ -121,25 +114,38 @@ class TodoManager {
     }
     
     
+    func fliterClickDate(_ todo: Todo , _ date: Date) -> Bool {
+        
+        let dateformatter = TodoManager.shared.todoLongStyleDateformatter
+        
+        let clickDate = date
+        guard let todoDeadLine = dateformatter.date(from: todo.time) else { return false }
+        let calendar = Calendar.current
+        let clickDateCalendarDate = calendar.dateComponents([.year,.month,.day], from: clickDate)
+        let todoCalendarDate = calendar.dateComponents([.year,.month,.day], from: todoDeadLine)
+        
+        if clickDateCalendarDate.year == todoCalendarDate.year && clickDateCalendarDate.month == todoCalendarDate.month && clickDateCalendarDate.day == todoCalendarDate.day {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     
     func dateGap(_ todo: Todo) -> String {
         
         var dateGap = "Late"
         
-        
-        
         let currentDate = Date()
         let calendar = Calendar.current
         
-        let dateFormatter = DateFormatter()
+        var dateFormatter = DateFormatter()
+        
         if todo.isAlways {
-            
-            dateFormatter.dateStyle = .none
-            dateFormatter.timeStyle = .short
+            dateFormatter = TodoManager.shared.todoDefultDateformatter
         } else {
             
-            dateFormatter.dateStyle = .long
-            dateFormatter.timeStyle = .short
+            dateFormatter = TodoManager.shared.todoLongStyleDateformatter
         }
         guard let date = dateFormatter.date(from: todo.time) else { return "Unkown"}
         let currentCalendarDate = calendar.dateComponents([.year,.month,.day,.hour, .minute, .second], from: currentDate)
@@ -214,15 +220,15 @@ class TodoManager {
         
         return dateGap
     }
+    
     func filterIsAlways(_ todos: [Todo]) -> [Todo] {
         var isAlwaysTodos : [Todo] = []
         isAlwaysTodos = todos.filter { $0.isAlways == true }
         
         isAlwaysTodos = isAlwaysTodos.sorted { (pastTodo, afterTodo) -> Bool in
-            let dateFormatter = DateFormatter()
             
-            dateFormatter.dateStyle = .none
-            dateFormatter.timeStyle = .short
+            let dateFormatter = TodoManager.shared.todoDefultDateformatter
+            
             let calendar = Calendar.current
             guard let pastDeadLine = dateFormatter.date(from: pastTodo.time) else { return false }
             guard let afterDeadLine = dateFormatter.date(from: afterTodo.time) else { return false }
@@ -242,16 +248,15 @@ class TodoManager {
         }
         return isAlwaysTodos
     }
+    
     func filterIsImportant(_ todos: [Todo]) -> [Todo] {
         var isImportantTodos : [Todo] = []
         
         isImportantTodos = todos.filter { $0.isImportant == true }
         
         isImportantTodos = isImportantTodos.sorted { (pastTodo, afterTodo) -> Bool in
-            let dateFormatter = DateFormatter()
+            let dateFormatter = TodoManager.shared.todoLongStyleDateformatter
             
-            dateFormatter.dateStyle = .long
-            dateFormatter.timeStyle = .short
             let calendar = Calendar.current
             guard let pastDeadLine = dateFormatter.date(from: pastTodo.time) else { return false }
             guard let afterDeadLine = dateFormatter.date(from: afterTodo.time) else { return false }
@@ -278,11 +283,9 @@ class TodoManager {
         
         return isImportantTodos
     }
+    
     func filterToday(_ todo: Todo) -> Bool {
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
+        let dateFormatter = TodoManager.shared.todoLongStyleDateformatter
         
         let currentDate = Date()
         guard let todoDeadLine = dateFormatter.date(from: todo.time) else { return false }
@@ -295,17 +298,12 @@ class TodoManager {
         } else {
             return false
         }
-        
-        
     }
     
     func isPastday(_ todo : Todo) -> Bool {
         var isPastday = false
         
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
+        let dateFormatter = TodoManager.shared.todoLongStyleDateformatter
         
         let currentDate = Date()
         let calendar = Calendar.current
@@ -347,15 +345,14 @@ class TodoManager {
         }
         todaytodos = todaytodos.sorted { (pastTodo, afterTodo) -> Bool in
             
-            let dateFormatter = DateFormatter()
+            var dateFormatter = DateFormatter()
             
 
             if pastTodo.isAlways || afterTodo.isAlways{
-                dateFormatter.dateStyle = .none
-                dateFormatter.timeStyle = .short
+                dateFormatter = TodoManager.shared.todoDefultDateformatter
+                
             } else {
-                dateFormatter.dateStyle = .long
-                dateFormatter.timeStyle = .short
+                dateFormatter = TodoManager.shared.todoLongStyleDateformatter
             }
 
             let calendar = Calendar.current
@@ -380,6 +377,7 @@ class TodoManager {
     
     func upcomingTodos(_ todos : [Todo]) -> [Todo] {
         var upcomingTodos : [Todo] = []
+        
         for i in todos {
             let todayTodo = filterToday(i)
             if todayTodo == false && !isPastday(i) {
@@ -387,15 +385,10 @@ class TodoManager {
             }
         }
         
-        
-        
-        
-        
         upcomingTodos = upcomingTodos.sorted { (pastTodo, afterTodo) -> Bool in
-            let dateFormatter = DateFormatter()
             
-            dateFormatter.dateStyle = .long
-            dateFormatter.timeStyle = .short
+            let dateFormatter = TodoManager.shared.todoLongStyleDateformatter
+            
             let calendar = Calendar.current
             guard let pastDeadLine = dateFormatter.date(from: pastTodo.time) else { return false }
             guard let afterDeadLine = dateFormatter.date(from: afterTodo.time) else { return false }
@@ -425,6 +418,22 @@ class TodoManager {
         return upcomingTodos
     }
     
+    func changeDate(deadLine:String,_ isAlways : Bool = false) -> Date {
+        let dateString = deadLine
+        
+        var dateFormatter = DateFormatter()
+        
+        if isAlways {
+            dateFormatter = todoDefultDateformatter
+        }
+        else {
+            dateFormatter = todoLongStyleDateformatter
+        }
+        
+        let date: Date = dateFormatter.date(from: dateString)!
+        
+        return date
+    }
 }
 
 class TodoViewModel {

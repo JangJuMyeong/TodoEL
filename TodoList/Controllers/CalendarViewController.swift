@@ -18,12 +18,7 @@ class CalendarViewController: UIViewController {
     
     var calendarDataSource: [String:String] = [:]
     var calendarDataSource2 : [String : [Todo]] = [:]
-    var formatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MMM-yyyy"
-        return formatter
-        
-    }
+    var formatter = TodoManager.shared.todoYearDateformatter
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,33 +34,6 @@ class CalendarViewController: UIViewController {
         calendar.reloadData()
     }
     
-    func changeDate(deadLine:String) -> Date {
-        let dateString = deadLine
-        
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
-        
-        let date: Date = dateFormatter.date(from: dateString)!
-        
-        return date
-        
-    }
-    
-    func changeAlwaysDate(deadLine:String) -> Date {
-        let dateString = deadLine
-        
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateStyle = .none
-        dateFormatter.timeStyle = .short
-        
-        let date: Date = dateFormatter.date(from: dateString)!
-        
-        return date
-        
-    }
     @IBAction func settingButton(_ sender: Any) {
         let storyBoard = UIStoryboard(name: "SettingView", bundle: nil)
         let settingVC = storyBoard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
@@ -73,6 +41,7 @@ class CalendarViewController: UIViewController {
     }
     
     func setup() {
+        
         self.calendar.dataSource = self
         self.calendar.delegate = self
         todayLabel.text = "Today"
@@ -171,11 +140,8 @@ extension CalendarViewController : SwipeCollectionViewCellDelegate {
                     content.sound = .default
                     content.body = todo.detail
                     
-                    if todo.isAlways {
-                        targetTime = self.changeAlwaysDate(deadLine: todo.time)
-                    } else {
-                        targetTime = self.changeDate(deadLine: todo.time)
-                    }
+                    targetTime = TodoManager.shared.changeDate(deadLine: todo.time, todo.isAlways)
+                    
                     let tigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day,.hour,.minute, .second], from: targetTime), repeats: false)
                     
                     let request = UNNotificationRequest(identifier: "\(todo.id)", content: content, trigger: tigger)
