@@ -29,9 +29,6 @@ public class CommonMethod {
         return dateformatter.string(from: date)
     }
     
-    private init()
-    {
-        
-    }
+    private init() { }
         
 }

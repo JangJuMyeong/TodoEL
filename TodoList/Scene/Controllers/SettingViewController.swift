@@ -18,14 +18,14 @@ class SettingViewController: UIViewController {
         settingCollectionView.register(UINib(nibName: "CollectionViewCell", bundle: .main), forCellWithReuseIdentifier: "CollectionViewCell")
         NotificationCenter.default.addObserver(self,selector: #selector(didRecieveTestNotification(_:)), name: SettingHaedarView.complete,object: nil)
     }
-
-
-let todoListViewModel = TodoViewModel()
-
-@objc func didRecieveTestNotification(_ notification: Notification) {
-    dismiss(animated: true, completion: nil)
-}
-
+    
+    
+    let todoListViewModel = TodoViewModel()
+    
+    @objc func didRecieveTestNotification(_ notification: Notification) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 extension SettingViewController : UICollectionViewDataSource {

@@ -10,12 +10,9 @@ import SwipeCellKit
 
 class CalendarDetailCollectionView: UIViewController {
 
-
     @IBOutlet weak var CalendarDetailCollection: UICollectionView!
     @IBOutlet weak var DateLabel: UILabel!
     var calendarDate : Date?
-    
-
     
     override func viewDidLoad() {
         
@@ -97,7 +94,6 @@ extension CalendarDetailCollectionView : UICollectionViewDataSource {
                 dateformatter.dateStyle = .long
                 header.headerLabel.text = dateformatter.string(from: date)
             }
-            
             return header
         default:
             return UICollectionReusableView()

@@ -17,11 +17,11 @@
 		B756DA8E2601D5A900BC2A82 /* SwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B756DA8D2601D5A900BC2A82 /* SwipeViewController.swift */; };
 		B75EC1CB25FCAE26005570A9 /* CalendarDetailCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75EC1CA25FCAE26005570A9 /* CalendarDetailCollectionView.swift */; };
 		B75EC1CE25FCAEC5005570A9 /* CalendarDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B75EC1CD25FCAEC5005570A9 /* CalendarDetail.storyboard */; };
+		B770853328BD03F2006D1E7F /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B770853228BD03F2006D1E7F /* UIViewController+.swift */; };
 		B7A5266725EF6540008CC8F9 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5266625EF6540008CC8F9 /* DateCell.swift */; };
 		B7A5266B25EF66E8008CC8F9 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5266A25EF66E8008CC8F9 /* CalendarViewController.swift */; };
 		B7A5267C25EFAA90008CC8F9 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5267B25EFAA90008CC8F9 /* DateHeader.swift */; };
 		B7A7BA4F2839C21500F062DD /* CommonMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A7BA4E2839C21500F062DD /* CommonMethod.swift */; };
-		B7C64E01256763E400299D9C /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C64E00256763E400299D9C /* AlertViewController.swift */; };
 		B7C64E042567A60E00299D9C /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C64E032567A60E00299D9C /* star.png */; };
 		EF0138A92564E490000F7373 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0138A82564E490000F7373 /* AppDelegate.swift */; };
 		EF0138AD2564E490000F7373 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0138AC2564E490000F7373 /* ListViewController.swift */; };
@@ -49,12 +49,12 @@
 		B756DA8D2601D5A900BC2A82 /* SwipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeViewController.swift; sourceTree = "<group>"; };
 		B75EC1CA25FCAE26005570A9 /* CalendarDetailCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailCollectionView.swift; sourceTree = "<group>"; };
 		B75EC1CD25FCAEC5005570A9 /* CalendarDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CalendarDetail.storyboard; sourceTree = "<group>"; };
+		B770853228BD03F2006D1E7F /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		B7A5266625EF6540008CC8F9 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		B7A5266A25EF66E8008CC8F9 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		B7A5267625EF6E72008CC8F9 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7A5267B25EFAA90008CC8F9 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
 		B7A7BA4E2839C21500F062DD /* CommonMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMethod.swift; sourceTree = "<group>"; };
-		B7C64E00256763E400299D9C /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		B7C64E032567A60E00299D9C /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		BF8B0FF13D7793EE99E78D59 /* Pods_TodoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF0138A82564E490000F7373 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +84,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B770852F28BD0311006D1E7F /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				EF0138C02564E4A1000F7373 /* Controllers */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		B770853028BD03CA006D1E7F /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				EF0138D825650B55000F7373 /* Util */,
+				B770853128BD03D9006D1E7F /* Extension */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		B770853128BD03D9006D1E7F /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B770853228BD03F2006D1E7F /* UIViewController+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		B7A7BA4D2839C1FD00F062DD /* Method */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,11 +139,12 @@
 		EF0138A72564E490000F7373 /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
-				EF0138C12564E4AB000F7373 /* Resources */,
-				EF0138D825650B55000F7373 /* Util */,
-				EF0138BF2564E49E000F7373 /* Models */,
+				B770853028BD03CA006D1E7F /* Helper */,
+				EF0138BF2564E49E000F7373 /* Domain */,
 				EF0138BD2564E496000F7373 /* Views */,
-				EF0138C02564E4A1000F7373 /* Controllers */,
+				B770852F28BD0311006D1E7F /* Scene */,
+				EF0138C12564E4AB000F7373 /* Resources */,
+				EF0138A82564E490000F7373 /* AppDelegate.swift */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
@@ -135,21 +161,18 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		EF0138BF2564E49E000F7373 /* Models */ = {
+		EF0138BF2564E49E000F7373 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
 				EF0138C62565087D000F7373 /* Todo.swift */,
 				EF0138CA256508C0000F7373 /* Storage.swift */,
 			);
-			path = Models;
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		EF0138C02564E4A1000F7373 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				EF0138A82564E490000F7373 /* AppDelegate.swift */,
-				B7A5266625EF6540008CC8F9 /* DateCell.swift */,
-				B7A5267B25EFAA90008CC8F9 /* DateHeader.swift */,
 				B7A5266A25EF66E8008CC8F9 /* CalendarViewController.swift */,
 				B75EC1CA25FCAE26005570A9 /* CalendarDetailCollectionView.swift */,
 				EF0138D425650B28000F7373 /* SpecificViewController.swift */,
@@ -157,7 +180,6 @@
 				EF0138CD25650A71000F7373 /* AddTodoViewController.swift */,
 				EF0138D025650A7C000F7373 /* TodoDetailViewController.swift */,
 				B756DA842601CAEB00BC2A82 /* SettingViewController.swift */,
-				B7C64E00256763E400299D9C /* AlertViewController.swift */,
 				B756DA8A2601D59500BC2A82 /* FSViewController.swift */,
 				B756DA8D2601D5A900BC2A82 /* SwipeViewController.swift */,
 			);
@@ -178,20 +200,22 @@
 			isa = PBXGroup;
 			children = (
 				B7A7BA4D2839C1FD00F062DD /* Method */,
-				EF0138D925650B6B000F7373 /* View */,
+				EF0138D925650B6B000F7373 /* Cell */,
 			);
 			path = Util;
 			sourceTree = "<group>";
 		};
-		EF0138D925650B6B000F7373 /* View */ = {
+		EF0138D925650B6B000F7373 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				B7A5266625EF6540008CC8F9 /* DateCell.swift */,
+				B7A5267B25EFAA90008CC8F9 /* DateHeader.swift */,
 				EF0138E125650B9B000F7373 /* TaskCollectionViewCell.swift */,
 				B72C570D25F5F8BF00AC098A /* TodoListHeaderView.swift */,
 				B72C570425F23E4D00AC098A /* CollectionViewCell.swift */,
 				B72C570525F23E4D00AC098A /* CollectionViewCell.xib */,
 			);
-			path = View;
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		F97F678FA9410BF55E9ABCC6 /* Frameworks */ = {
@@ -328,13 +352,13 @@
 				EF0138CE25650A71000F7373 /* AddTodoViewController.swift in Sources */,
 				B756DA852601CAEB00BC2A82 /* SettingViewController.swift in Sources */,
 				EF0138CB256508C0000F7373 /* Storage.swift in Sources */,
-				B7C64E01256763E400299D9C /* AlertViewController.swift in Sources */,
 				B756DA8B2601D59500BC2A82 /* FSViewController.swift in Sources */,
 				EF0138D525650B28000F7373 /* SpecificViewController.swift in Sources */,
 				B7A5266725EF6540008CC8F9 /* DateCell.swift in Sources */,
 				B7A7BA4F2839C21500F062DD /* CommonMethod.swift in Sources */,
 				B756DA8E2601D5A900BC2A82 /* SwipeViewController.swift in Sources */,
 				B75EC1CB25FCAE26005570A9 /* CalendarDetailCollectionView.swift in Sources */,
+				B770853328BD03F2006D1E7F /* UIViewController+.swift in Sources */,
 				B72C570625F23E4D00AC098A /* CollectionViewCell.swift in Sources */,
 				EF0138C72565087D000F7373 /* Todo.swift in Sources */,
 				EF0138A92564E490000F7373 /* AppDelegate.swift in Sources */,
